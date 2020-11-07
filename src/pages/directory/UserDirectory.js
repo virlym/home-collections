@@ -158,18 +158,54 @@ class Form extends Component {
   render() {
     // Notice how each input has a `value`, `name`, and `onChange` prop
     return (
-      <div>
-          <input
-            id="userSearch"
-            value={this.state.searchTerm}
-            name="searchTerm"
-            onChange={this.handleInputChange.bind(this)}
-            type="text"
-            placeholder="Name"
-          />
-        <table id="myTable" className="searchable sortable">
-        <Table table={this.state.tableList.data} sort={this.sortTable.bind(this)}/>
-        </table>
+      <div className="container">
+
+        <div className="row">
+          <div className="col-12">
+            <h1>
+              User Directory
+            </h1>
+          </div>
+
+        </div>
+
+        <div className="row">
+
+          
+
+          <div className="col-12">
+            <div className="input-group input-group-lg" style={{marginTop:"20px", textAlign:"center"}}>
+              <div className="input-group-prepend">
+                <span className="input-group-text" id="inputGroup-sizing-lg">Search</span>
+              </div>
+              <input
+                className="form-control"
+                id="userSearch"
+                value={this.state.searchTerm}
+                name="searchTerm"
+                onChange={this.handleInputChange.bind(this)}
+                type="text"
+                placeholder="Name"
+              />
+            </div>
+          </div>
+
+          
+
+        </div>
+        <br />
+
+        <div className="row">
+          <div className="col-12">
+            <table id="myTable">
+              <Table table={this.state.tableList.data} sort={this.sortTable.bind(this)}/>
+            </table>
+          </div>
+        </div>
+
+        <footer>
+          <small> &copy; 2020 Virlym di Aunel</small>
+        </footer>
       </div>
     );
   }
