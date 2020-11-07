@@ -1,5 +1,5 @@
 import './App.css';
-import UserDirectory from "./components/table/UserDirectory"
+import UserDirectory from "./pages/directory/UserDirectory"
 
 function App() {
   return <UserDirectory />;

@@ -2,15 +2,14 @@ import React from "react";
 import "./style.css";
 
 function Table(props) {
-    console.log("test : ", props.table[0]);
     //console.log("name: ", props.user[0].firstName);
   return (
       <tbody>
           <tr className="header">
-            <th> Profile </th>
-            <th> First Name </th>
-            <th> Last Name </th>
-            <th> Age </th>
+            <th onClick={props.sort.bind(this, "id")}> Profile </th>
+            <th onClick={props.sort.bind(this, "firstName")}> First Name </th>
+            <th onClick={props.sort.bind(this, "lastName")}> Last Name </th>
+            <th onClick={props.sort.bind(this, "age")}> Age </th>
             <th> Phone </th>
             <th> Email </th>
           </tr>
