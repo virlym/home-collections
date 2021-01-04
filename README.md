@@ -3,7 +3,8 @@
   ![Last-Commit](https://img.shields.io/github/last-commit/virlym/hw19-user-directory)
   ![License](https://img.shields.io/github/license/virlym/hw19-user-directory)
   ## **Description**
-  
+  Reworking the user directory into a home collection tracker for books, cds, and dvds. The readme will be updated when enough of the user directory has been reworked. 
+
   Utilizing React.js, call up a list of users from a random user api. store their information in a state and show it in a table on the page. The user can search through the users by name partials, sort by first name, last name, and age by clicking on the corresponding table heading.
   <br><br>
   
