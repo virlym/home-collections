@@ -13,7 +13,7 @@ albums.items[x].total_tracks
 
 ~~~~~~~~~~~~
 
-search albums by artist:
+search albums by album title:
 GET https://api.spotify.com/v1/search
 
 curl -X "GET" "https://api.spotify.com/v1/search?q=album%3A${queryEncoded}&type=album" -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer ${token}"
