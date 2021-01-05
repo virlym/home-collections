@@ -6,6 +6,7 @@ import Landing from "./pages/landing/landing";
 import BookSearch from "./pages/bookSearch/bookSearch";
 import MovieSearch from "./pages/movieSearch/movieSearch";
 import MusicSearch from "./pages/musicSearch/musicSearch";
+import {Helmet} from 'react-helmet';
 
 function App() {
   // state to keep track of the current page
@@ -31,6 +32,9 @@ function App() {
 
   return (
     <div>
+      <Helmet>
+        <body className="bg-dark text-light"/>
+      </Helmet>
         <Router>
           <NavTabs currentPage={pageState.currentPage} setPageState={setPageState}/>
         <Switch>
@@ -42,6 +46,9 @@ function App() {
 
         </Switch>
         </Router>
+        <footer>
+          <small> &copy; 2020 Virlym di Aunel</small>
+        </footer>
       </div>
   );
 }

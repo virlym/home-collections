@@ -28,6 +28,21 @@
   color: #61dafb;
 }
 
+footer{
+  border-top-style: solid;
+  border-top-color: lightseagreen;
+  border-top-width: 5px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: skyblue;
+  font-size: 20px;
+  font-family: 'Bilbo', 'Times New Roman', Times, serif;
+  text-align: center;
+  color: black;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
