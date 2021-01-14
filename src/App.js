@@ -45,9 +45,9 @@ function App() {
         <Router>
           <NavTabs currentPage={pageState.currentPage} setPageState={setPageState} loggedIn={userState.loggedIn}/>
         <Switch>
-          <Route path="/books"> <BookSearch userBooks={userState.books} /> </Route>
-          <Route path="/movies"> <MovieSearch userMovies={userState.movies} /> </Route>
-          <Route path="/music"> <MusicSearch userMusic={userState.music} /> </Route>
+          <Route path="/books"> <BookSearch userBooks={userState.books} loggedIn={userState.loggedIn} /> </Route>
+          <Route path="/movies"> <MovieSearch userMovies={userState.movies} loggedIn={userState.loggedIn} /> </Route>
+          <Route path="/music"> <MusicSearch userMusic={userState.music} loggedIn={userState.loggedIn} /> </Route>
           <Route path="/profile"> <MusicSearch /> </Route>
           <Route exact path="/"> <Landing /> </Route>
           <Route path="*"> <Landing /> </Route>

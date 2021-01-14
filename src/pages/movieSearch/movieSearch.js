@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./movieSearch.css";
 import API from "../../utils/MovieAPI.js";
 import Searchbar from "../../components/searchbar/searchbar.js"
+import SearchResults from "../../components/searchResults/searchResults.js"
+import NoSearchResults from "../../components/noSearchResults.js"
 
 function MovieSearch(props) {
   const [searchState, setSearchState] = useState({
@@ -104,6 +106,10 @@ function MovieSearch(props) {
     setSearchState({...searchState, [name]: value});
   }
 
+  function addToCollection(){
+
+  }
+
   return (
     <div className="container">
 
@@ -120,11 +126,14 @@ function MovieSearch(props) {
         <br />
 
         <div className="row">
-          <div className="col-12">
-            {/* <table id="myTable">
-              <Table table={this.state.tableList.data} sort={this.sortTable.bind(this)}/>
-            </table> */}
-          </div>
+        <div className="col-12 border border-info rounded-top rounded-bottom display-box">
+          <h3 className="section-head"> Search Results </h3>
+          {searchState.searchResults.length > 0
+            ? searchState.searchResults.map(function(searchArray){
+              return <SearchResults searchResults={searchArray} key={searchArray.id} addToCollection={addToCollection} loggedIn={props.loggedIn}/>})
+            : <NoSearchResults />
+          }
+        </div>
         </div>
       </div>
   );
