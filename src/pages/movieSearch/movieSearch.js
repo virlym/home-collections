@@ -1,4 +1,5 @@
 import React from "react";
+import "./movieSearch.css";
 
 function MovieSearch() {
   return (

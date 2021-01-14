@@ -41,6 +41,7 @@ function App() {
           <Route path="/books"> <BookSearch/> </Route>
           <Route path="/movies"> <MovieSearch /> </Route>
           <Route path="/music"> <MusicSearch /> </Route>
+          <Route path="/profile"> <MusicSearch /> </Route>
           <Route exact path="/"> <Landing /> </Route>
           <Route path="*"> <Landing /> </Route>
 
