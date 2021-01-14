@@ -3,53 +3,98 @@ import "./movieSearch.css";
 import API from "../../utils/MovieAPI.js";
 import Searchbar from "../../components/searchbar/searchbar.js"
 
-function MovieSearch() {
+function MovieSearch(props) {
   const [searchState, setSearchState] = useState({
     searchTerm: "",
-    searchType: "",
+    searchType: "all",
     searchResults: []
-    // {id, title, year, poster, nominated (T/F)}
+    // {id, title, year, poster, owned (T/F)}
   });
 
-    // user nominations
-    const [nominationState, setNominationState] = useState({
-      nominations: []
-      // {id, title, year, poster}
-    });
+  function getAllSearch(results, page, rawResults) {
+    API.search(searchState.searchTerm, page)
+        .then(function (res){
+          if(res.data.Response === "True"){
+            if(rawResults.length > 0){
+              rawResults = rawResults.concat(res.data.Search);
+            }
+            else{
+              rawResults = res.data.Search;
+            }
+            results = parseInt(results) + parseInt(res.data.Search.length);
+            page++;
+            if(results < parseInt(res.data.totalResults)){
+              getAllSearch(results, page, rawResults);
+            }
+            else{
+              sortResults(rawResults);
+            }
+          }
+        })
+        .catch(err => console.log("error :", err));
+  }
 
-  function testOutput (data) {
-    console.log(data);
+  function sortResults(rawResults){
+    let movieList = [];
+            for(let i = 0; i < rawResults.length; i++){
+              if(searchState.searchType === "movies"){
+                if(rawResults[i].Type === "movie"){
+                  let hasMovie = false;
+                  for(let j = 0; j < props.userMovies.length; j++){
+                    if(props.userMovies[j].id === rawResults[i].imdbID){
+                      hasMovie = true;
+                    }
+                  }
+                  let imgLink = rawResults[i].Poster;
+                  if(imgLink === "N/A"){
+                    imgLink = "https://123moviesfree.zone/no-poster.png"
+                  }
+                  movieList.push({id: rawResults[i].imdbID, title: rawResults[i].Title, year: rawResults[i].Year, poster: imgLink, owned: hasMovie});
+                }
+              }
+
+              else if(searchState.searchType === "series"){
+                if(rawResults[i].Type === "series"){
+                  let hasMovie = false;
+                  for(let j = 0; j < props.userMovies.length; j++){
+                    if(props.userMovies[j].id === rawResults[i].imdbID){
+                      hasMovie = true;
+                    }
+                  }
+                  let imgLink = rawResults[i].Poster;
+                  if(imgLink === "N/A"){
+                    imgLink = "https://123moviesfree.zone/no-poster.png"
+                  }
+                  movieList.push({id: rawResults[i].imdbID, title: rawResults[i].Title, year: rawResults[i].Year, poster: imgLink, owned: hasMovie});
+                }
+              }
+
+              else{
+                if((rawResults[i].Type === "movie")||(rawResults[i].Type === "series")){
+                  let hasMovie = false;
+                  for(let j = 0; j < props.userMovies.length; j++){
+                    if(props.userMovies[j].id === rawResults[i].imdbID){
+                      hasMovie = true;
+                    }
+                  }
+                  let imgLink = rawResults[i].Poster;
+                  if(imgLink === "N/A"){
+                    imgLink = "https://123moviesfree.zone/no-poster.png"
+                  }
+                  movieList.push({id: rawResults[i].imdbID, title: rawResults[i].Title, year: rawResults[i].Year, poster: imgLink, owned: hasMovie});
+                }
+              }
+
+            }
+            setSearchState({...searchState, searchResults: movieList});
   }
 
   function searchMovies(event){
     event.preventDefault();
-    console.log("hi");
-    console.log(searchState.searchTerm);
-    console.log(searchState.searchType);
-    // API.search(searchState.searchTerm)
-    //     .then(function (res){
-    //       if(res.data.Response === "True"){
-    //         console.log(res.data);
-    //         let movieList = [];
-    //         for(let i = 0; i < res.data.Search.length; i++){
-    //           if(res.data.Search[i].Type === "movie"){
-    //             let isNominated = false;
-    //             for(let j = 0; j < nominationState.nominations.length; j++){
-    //               if(nominationState.nominations[j].id === res.data.Search[i].imdbID){
-    //                 isNominated = true;
-    //               }
-    //             }
-    //             let imgLink = res.data.Search[i].Poster;
-    //             if(imgLink === "N/A"){
-    //               imgLink = "https://123moviesfree.zone/no-poster.png"
-    //             }
-    //             movieList.push({id: res.data.Search[i].imdbID, title: res.data.Search[i].Title, year: res.data.Search[i].Year, poster: imgLink, nominated: isNominated});
-    //           }
-    //         }
-    //         setSearchState({...searchState, searchResults: movieList});
-    //       }
-    //     })
-    //     .catch(err => console.log("error :", err));
+    let results = 0;
+    let page = 1;
+    let rawResults = [];
+    getAllSearch(results, page, rawResults);
   }
 
   // track search field input
