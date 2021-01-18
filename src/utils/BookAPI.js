@@ -1,23 +1,23 @@
 import axios from "axios";
 
 const BookAPI = {
-  titleSearch: function(query) {
-    return axios.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:${query}`);
+  titleSearch: function(query, index) {
+    return axios.get(`https://www.googleapis.com/books/v1/volumes?q=intitle:${query}&maxResults=40&startIndex=${index}&langRestrict=en`);
   },
-  authorSearch: function(query) {
-    return axios.get(`https://www.googleapis.com/books/v1/volumes?q=inauthor:${query}`);
+  authorSearch: function(query, index) {
+    return axios.get(`https://www.googleapis.com/books/v1/volumes?q=inauthor:${query}&maxResults=40&startIndex=${index}&langRestrict=en`);
   },
-  publisherSearch: function(query) {
-    return axios.get(`https://www.googleapis.com/books/v1/volumes?q=inpublisher:${query}`);
+  publisherSearch: function(query, index) {
+    return axios.get(`https://www.googleapis.com/books/v1/volumes?q=inpublisher:${query}&maxResults=40&startIndex=${index}&langRestrict=en`);
   },
-  subjectSearch: function(query) {
-    return axios.get(`https://www.googleapis.com/books/v1/volumes?q=subject:${query}`);
+  subjectSearch: function(query, index) {
+    return axios.get(`https://www.googleapis.com/books/v1/volumes?q=subject:${query}&maxResults=40&startIndex=${index}&langRestrict=en`);
   },
-  isbnSearch: function(query) {
-    return axios.get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${query}`);
+  isbnSearch: function(query, index) {
+    return axios.get(`https://www.googleapis.com/books/v1/volumes?q=isbn:${query}&maxResults=40&startIndex=${index}&langRestrict=en`);
   },
-  generalSearch: function(query) {
-    return axios.get(`https://www.googleapis.com/books/v1/volumes?q=${query}`);
+  generalSearch: function(query, index) {
+    return axios.get(`https://www.googleapis.com/books/v1/volumes?q=${query}&maxResults=40&startIndex=${index}&langRestrict=en`);
   }
 };
 

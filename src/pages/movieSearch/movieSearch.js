@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./movieSearch.css";
 import API from "../../utils/MovieAPI.js";
 import Searchbar from "../../components/searchbar/searchbar.js"
-import SearchResults from "../../components/searchResults/searchResults.js"
+import MovieSearchResults from "../../components/movieSearchResults/movieSearchResults.js"
 import NoSearchResults from "../../components/noSearchResults.js"
 
 function MovieSearch(props) {
@@ -130,7 +130,7 @@ function MovieSearch(props) {
           <h3 className="section-head"> Search Results </h3>
           {searchState.searchResults.length > 0
             ? searchState.searchResults.map(function(searchArray){
-              return <SearchResults searchResults={searchArray} key={searchArray.id} addToCollection={addToCollection} loggedIn={props.loggedIn}/>})
+              return <MovieSearchResults searchResults={searchArray} key={searchArray.id} addToCollection={addToCollection} loggedIn={props.loggedIn}/>})
             : <NoSearchResults />
           }
         </div>

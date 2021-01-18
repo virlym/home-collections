@@ -1,17 +1,17 @@
 import React from "react";
-import "./searchResults.css";
+import "./bookSearchResults.css";
 
-function SearchResults(props) {
+function BookSearchResults(props) {
     return (
         <div>
             <div className="row">
                 <div className="col-4">
-                    <img src={props.searchResults.poster} alt={props.searchResults.title + "Poster"} className="poster-size"/>
+                    <img src={props.searchResults.cover} alt={props.searchResults.title + "Cover"} className="cover-size"/>
                 </div>
                 <div className="col-8">
                     <div className="row description-row">
                         <div className="col-12">
-                            <p> {props.searchResults.title} ({props.searchResults.year})</p>
+                            <p> {props.searchResults.title} <br /> {props.searchResults.subtitle}</p>
                         </div>
                     </div>
                     {props.loggedIn === true
@@ -44,4 +44,4 @@ function SearchResults(props) {
     );
 }
 
-export default SearchResults;
+export default BookSearchResults;

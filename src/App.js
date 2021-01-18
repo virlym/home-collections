@@ -26,10 +26,10 @@ function App() {
     if(window.location.pathname === "/books"){
       setPageState({ currentPage: "books" });
     }
-    else if(window.location.pathname === "movies"){
+    else if(window.location.pathname === "/movies"){
       setPageState({ currentPage: "movies" });
     }
-    else if(window.location.pathname === "music"){
+    else if(window.location.pathname === "/music"){
       setPageState({ currentPage: "music" });
     }
     else{
