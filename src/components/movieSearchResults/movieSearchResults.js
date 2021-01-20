@@ -5,7 +5,7 @@ function SearchResults(props) {
     return (
         <div>
             <div className="row">
-                <div className="col-4">
+                <div className="col-4  my-auto">
                     <img src={props.searchResults.poster} alt={props.searchResults.title + "Poster"} className="poster-size"/>
                 </div>
                 <div className="col-8">
