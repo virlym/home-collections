@@ -1,0 +1,9 @@
+div.dropdown-menu.show {
+    background-color: #17a2b8; 
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgba(0,0,0,.15);
+  }
+  a.dropdown-item {
+    color: #f8f9fa;
+  }

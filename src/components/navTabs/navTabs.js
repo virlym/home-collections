@@ -1,56 +1,55 @@
-import React from "react";
+import React, {useState} from "react";
+import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import "./navTabs.css";
 
 function NavTabs(props) {
+  const [expanded, setExpanded] = useState(false);
 
   return (
-    <ul className="nav nav-tabs navbar-dark bg-info">
-      <Link to="/landing" onClick={function(){ props.setPageState({currentPage: "landing"})}} className="navbar-brand" >
+    <Navbar expanded={expanded} expand="lg" bg="info" variant="dark">
+      <Navbar.Brand as={Link} to="/landing" onClick={function(){ props.setPageState({currentPage: "landing"})}}>
         Home Collections
-      </Link>
-      <li className="nav-item">
-        <Link to="/landing" onClick={function(){ props.setPageState({currentPage: "landing"})}} className={props.currentPage === "landing" ? "nav-link active bg-dark text-light" : "nav-link text-light"}>
-          Home
-        </Link>
-      </li>
-      <li className="nav-item">
-        <Link to="/books" onClick={function(){ props.setPageState({currentPage: "books"})}} className={props.currentPage === "books" ? "nav-link active bg-dark text-light" : "nav-link text-light"}>
+      </Navbar.Brand>
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={function(){ setExpanded(expanded ? false : "expanded") }} />
+      <Navbar.Collapse id="responsive-navbar-nav">
+      <Nav className="mr-auto">
+        <Nav.Link as={Link} to="/landing" onClick={function(){ props.setPageState({currentPage: "landing"}); setExpanded(false) }} className={props.currentPage === "landing" ? "nav-link active bg-dark text-light" : "nav-link text-light"}>
+                Home
+        </Nav.Link>
+        <Nav.Link as={Link} to="/books"  onClick={function(){ props.setPageState({currentPage: "books"}); setExpanded(false) }} className={props.currentPage === "books" ? "nav-link active bg-dark text-light" : "nav-link text-light"}>
           Books
-        </Link>
-      </li>
-      <li className="nav-item">
-        <Link to="/movies" onClick={function(){ props.setPageState({currentPage: "movies"})}} className={props.currentPage === "movies" ? "nav-link active bg-dark text-light" : "nav-link text-light"}>
+        </Nav.Link>
+        <Nav.Link as={Link} to="/movies" onClick={function(){ props.setPageState({currentPage: "movies"}); setExpanded(false) }} className={props.currentPage === "movies" ? "nav-link active bg-dark text-light" : "nav-link text-light"}>
           Movies
-        </Link>
-      </li>
-      <li className="nav-item">
-        <Link to="/music" onClick={function(){ props.setPageState({currentPage: "music"})}} className={props.currentPage === "music" ? "nav-link active bg-dark text-light" : "nav-link text-light"}>
+        </Nav.Link>
+        <Nav.Link as={Link} to="/music" onClick={function(){ props.setPageState({currentPage: "music"}); setExpanded(false) }} className={props.currentPage === "music" ? "nav-link active bg-dark text-light" : "nav-link text-light"}>
           Music
-        </Link>
-      </li>
-      { props.loggedIn === true
-      ?
-        <li className="nav-item">
-          <Link to="/profile" onClick={function(){ props.setPageState({currentPage: "profile"})}} className={props.currentPage === "profile" ? "nav-link active bg-dark text-light" : props.currentPage === "mybooks" ? "nav-link active bg-dark text-light" : props.currentPage === "mymovies" ? "nav-link active bg-dark text-light" : props.currentPage === "mymusic" ? "nav-link active bg-dark text-light" : "nav-link text-light"}>
-            My Collections
-          </Link>
-        </li>
-      :
-        null
-      }
-      <li className="nav-item ml-auto">
+        </Nav.Link>
         {props.loggedIn === false
-          ?
-            <Link to="/login" onClick={function(){ props.setPageState({currentPage: "login"})}} className={props.currentPage === "login" ? "nav-link active bg-dark text-light" : props.currentPage === "signup" ? "nav-link active bg-dark text-light" : "nav-link text-light"}>
-              Login
-            </Link>
-          :
-            <Link to="/logout" onClick={function(){ props.setPageState({currentPage: "logout"})}} className={props.currentPage === "logout" ? "nav-link active bg-dark text-light" : "nav-link text-light"}>
-              Logout
-            </Link>
+        ?
+          <NavDropdown className={props.currentPage === "mybooks" || props.currentPage === "mymusic" || props.currentPage === "mymovies" ? "active bg-dark text-light" : "bg-info text-light"} title={<span className="text-light"> My Collections </span> } id="collapsible-nav-dropdown" >
+            <NavDropdown.Item as={Link} to="/mybooks" onClick={function(){ props.setPageState({currentPage: "mybooks"}); setExpanded(false) }} >My Books</NavDropdown.Item>
+            <NavDropdown.Item as={Link} to="/mymovies" onClick={function(){ props.setPageState({currentPage: "mymovies"}); setExpanded(false) }}>My Movies</NavDropdown.Item>
+            <NavDropdown.Item as={Link} to="/mymusic" onClick={function(){ props.setPageState({currentPage: "mymusic"}); setExpanded(false) }}>My Music</NavDropdown.Item>
+            <NavDropdown.Divider style={{borderStyle: "solid", borderWidth: "1px", borderColor: "rgba(0,0,0,.15)"}} />
+            <NavDropdown.Item as={Link} to="/profile" onClick={function(){ props.setPageState({currentPage: "movies"}); setExpanded(false) }}>Profile</NavDropdown.Item>
+          </NavDropdown>
+        : 
+          null
         }
-      </li>
-    </ul>
+      </Nav>
+
+      <Nav onClick={function(){setExpanded(false)}}>
+        {props.loggedIn === false
+        ?
+          <Nav.Link as={Link} to="/login" onClick={function(){ props.setPageState({currentPage: "login"})}} className={props.currentPage === "login" ? "nav-link active bg-dark text-light" : "nav-link text-light"}>Login</Nav.Link>
+        :
+          <Nav.Link as={Link} to="/logout" onClick={function(){ props.setPageState({currentPage: "logout"})}} className={props.currentPage === "logout" ? "nav-link active bg-dark text-light" : "nav-link text-light"}>Logout</Nav.Link>
+        }
+      </Nav>
+      </Navbar.Collapse>
+    </Navbar>
   );
 }
 
