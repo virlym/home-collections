@@ -29,11 +29,11 @@ function NavTabs(props) {
         {props.loggedIn === false
         ?
           <NavDropdown className={props.currentPage === "mybooks" || props.currentPage === "mymusic" || props.currentPage === "mymovies" ? "active bg-dark text-light" : "bg-info text-light"} title={<span className="text-light"> My Collections </span> } id="collapsible-nav-dropdown" >
-            <NavDropdown.Item as={Link} to="/mybooks" onClick={function(){ props.setPageState({currentPage: "mybooks"}); setExpanded(false) }} >My Books</NavDropdown.Item>
-            <NavDropdown.Item as={Link} to="/mymovies" onClick={function(){ props.setPageState({currentPage: "mymovies"}); setExpanded(false) }}>My Movies</NavDropdown.Item>
-            <NavDropdown.Item as={Link} to="/mymusic" onClick={function(){ props.setPageState({currentPage: "mymusic"}); setExpanded(false) }}>My Music</NavDropdown.Item>
+            <NavDropdown.Item as={Link} to="/mybooks" onClick={function(){ props.setPageState({currentPage: "mybooks"}); setExpanded(false) }} className={props.currentPage === "mybooks" ? "active bg-dark text-light" : "text-light"}>My Books</NavDropdown.Item>
+            <NavDropdown.Item as={Link} to="/mymovies" onClick={function(){ props.setPageState({currentPage: "mymovies"}); setExpanded(false) }} className={props.currentPage === "mymovies" ? "active bg-dark text-light" : "text-light"}>My Movies</NavDropdown.Item>
+            <NavDropdown.Item as={Link} to="/mymusic" onClick={function(){ props.setPageState({currentPage: "mymusic"}); setExpanded(false) }} className={props.currentPage === "mymusic" ? "active bg-dark text-light" : "text-light"}>My Music</NavDropdown.Item>
             <NavDropdown.Divider style={{borderStyle: "solid", borderWidth: "1px", borderColor: "rgba(0,0,0,.15)"}} />
-            <NavDropdown.Item as={Link} to="/profile" onClick={function(){ props.setPageState({currentPage: "movies"}); setExpanded(false) }}>Profile</NavDropdown.Item>
+            <NavDropdown.Item as={Link} to="/profile" onClick={function(){ props.setPageState({currentPage: "profile"}); setExpanded(false) }} className={props.currentPage === "profile" ? "active bg-dark text-light" : "text-light"}>Profile</NavDropdown.Item>
           </NavDropdown>
         : 
           null
