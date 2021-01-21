@@ -18,7 +18,7 @@ function App() {
     loggedIn: false,
     books: [],
     movies: [],
-    music: []
+    albums: []
   });
 
   // on page load, get the current page
@@ -47,7 +47,10 @@ function App() {
         <Switch>
           <Route path="/books"> <BookSearch userBooks={userState.books} loggedIn={userState.loggedIn} /> </Route>
           <Route path="/movies"> <MovieSearch userMovies={userState.movies} loggedIn={userState.loggedIn} /> </Route>
-          <Route path="/music"> <MusicSearch userMusic={userState.music} loggedIn={userState.loggedIn} /> </Route>
+          <Route path="/music"> <MusicSearch userAlbums={userState.albums} loggedIn={userState.loggedIn} /> </Route>
+          <Route path="/mybooks"> <MusicSearch /> </Route>
+          <Route path="/mymovies"> <MusicSearch /> </Route>
+          <Route path="/mymusic"> <MusicSearch /> </Route>
           <Route path="/profile"> <MusicSearch /> </Route>
           <Route exact path="/"> <Landing /> </Route>
           <Route path="*"> <Landing /> </Route>

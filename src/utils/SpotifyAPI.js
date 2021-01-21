@@ -1,3 +1,48 @@
+import axios from "axios";
+const SpotifyAPI = {
+    getToken: function() {
+        return axios({
+            // call the token url
+            url: "https://accounts.spotify.com/api/token",
+            // set the authorization headers
+            headers: { 'Authorization' : `Basic ${process.env.REACT_APP_SPOTIFY_KEY}` },
+            // set the data to client_credentials as per the spotify api instructions
+            processData: false,
+            data: "grant_type=client_credentials",
+            responseType: "json",
+            method: "post"
+        });
+    },
+    artistSearch: function(query, token, offset) {
+        return axios({
+            url: `https://api.spotify.com/v1/search?q=artist%3A${query}&type=album&limit=50&offset=${offset}`,
+            // set the authorization headers with the token
+            headers: { 'Authorization': `${token}` },
+            responseType: "json",
+            method: "get"
+        });
+    },
+    albumSearch: function(query, token, offset) {
+        return axios({
+            url: `https://api.spotify.com/v1/search?q=album%3A${query}&type=album&limit=50&offset=${offset}`,
+            // set the authorization headers with the token
+            headers: { 'Authorization': `${token}` },
+            responseType: "json",
+            method: "get"
+        });
+    },
+    songSearch: function(query, token, offset) {
+        return axios({
+            url: `https://api.spotify.com/v1/search?q=track%3A${query}&type=track&limit=50&offset=${offset}`,
+            // set the authorization headers with the token
+            headers: { 'Authorization': `${token}` },
+            responseType: "json",
+            method: "get"
+        });
+    }
+};
+  
+export default SpotifyAPI;
 /*
 search albums by artist:
 GET https://api.spotify.com/v1/search

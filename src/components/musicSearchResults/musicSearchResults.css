@@ -1,0 +1,12 @@
+.album-size {
+    width: 130px;
+}
+
+.description-row {
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+.slate-hr {
+    border: 1px solid slategrey;
+}

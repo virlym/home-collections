@@ -39,7 +39,7 @@ function BookSearch(props) {
             }
           }
           else{
-            setSearchState({ ...searchState, searchResults: [] });
+            setSearchState({ ...searchState, searching: false, searchResults: [] });
           }
         })
         .catch(err => console.log("error :", err));
@@ -67,7 +67,7 @@ function BookSearch(props) {
             }
           }
           else{
-            setSearchState({ ...searchState, searchResults: [] });
+            setSearchState({ ...searchState, searching: false, searchResults: [] });
           }
         })
         .catch(err => console.log("error :", err));
@@ -95,7 +95,7 @@ function BookSearch(props) {
             }
           }
           else{
-            setSearchState({ ...searchState, searchResults: [] });
+            setSearchState({ ...searchState, searching: false, searchResults: [] });
           }
         })
         .catch(err => console.log("error :", err));
@@ -123,7 +123,7 @@ function BookSearch(props) {
             }
           }
           else{
-            setSearchState({ ...searchState, searchResults: [] });
+            setSearchState({ ...searchState, searching: false, searchResults: [] });
           }
         })
         .catch(err => console.log("error :", err));
@@ -151,7 +151,7 @@ function BookSearch(props) {
             }
           }
           else{
-            setSearchState({ ...searchState, searchResults: [] });
+            setSearchState({ ...searchState, searching: false, searchResults: [] });
           }
         })
         .catch(err => console.log("error :", err));
@@ -179,7 +179,7 @@ function BookSearch(props) {
             }
           }
           else{
-            setSearchState({ ...searchState, searchResults: [] });
+            setSearchState({ ...searchState, searching: false, searchResults: [] });
           }
         })
         .catch(err => console.log("error :", err));

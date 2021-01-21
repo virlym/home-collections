@@ -1,0 +1,20 @@
+h1{
+    text-align: center;
+  }
+
+  .section-head {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    background-color: black;
+  }
+
+  .display-box {
+    /* padding: 5px; */
+    margin-bottom: 25px;
+    max-height: 70vh;
+    overflow-y: auto; 
+    text-align: center;
+    background-color: black;
+  }
