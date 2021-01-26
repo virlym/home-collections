@@ -19,7 +19,6 @@ function MusicSearch(props) {
     if(searchState.searchType === "artist"){
       API.artistSearch(searchState.searchTerm, token, index)
         .then(function (res){
-          setSearchState({ ...searchState, searching: true });
           if(res.status === 200){
             if(rawResults.length > 0){
               rawResults = rawResults.concat(res.data.albums.items);
@@ -169,6 +168,7 @@ function MusicSearch(props) {
     let results = 0;
     let index = 0;
     let rawResults = [];
+    setSearchState({ ...searchState, searching: true });
     API.getToken()
     .then(function(res){
       const token = `${res.data.token_type} ${res.data.access_token}`;
@@ -196,7 +196,7 @@ function MusicSearch(props) {
         <div className="row">
           <div className="col-12">
             <h1>
-              Music Search
+              Album Search
             </h1>
           </div>
         </div>

@@ -4,12 +4,14 @@ import API from "../../utils/MovieAPI.js";
 import Searchbar from "../../components/searchbar/searchbar.js"
 import MovieSearchResults from "../../components/movieSearchResults/movieSearchResults.js"
 import NoSearchResults from "../../components/noSearchResults.js"
+import Searching from "../../components/searching.js";
 
 function MovieSearch(props) {
   const [searchState, setSearchState] = useState({
     searchTerm: "",
     searchType: "all",
-    searchResults: []
+    searchResults: [],
+    searching: false
     // {id, title, year, poster, owned (T/F)}
   });
 
@@ -31,6 +33,9 @@ function MovieSearch(props) {
             else{
               sortResults(rawResults);
             }
+          }
+          else{
+            setSearchState({ ...searchState, searching: false, searchResults: [] });
           }
         })
         .catch(err => console.log("error :", err));
@@ -88,7 +93,7 @@ function MovieSearch(props) {
               }
 
             }
-            setSearchState({...searchState, searchResults: movieList});
+            setSearchState({...searchState, searching: false, searchResults: movieList});
   }
 
   function searchMovies(event){
@@ -96,6 +101,7 @@ function MovieSearch(props) {
     let results = 0;
     let page = 1;
     let rawResults = [];
+    setSearchState({ ...searchState, searching: true });
     getAllSearch(results, page, rawResults);
   }
 
@@ -128,10 +134,12 @@ function MovieSearch(props) {
         <div className="row">
         <div className="col-12 border border-info rounded-top rounded-bottom display-box">
           <h3 className="section-head"> Search Results </h3>
-          {searchState.searchResults.length > 0
-            ? searchState.searchResults.map(function(searchArray){
-              return <MovieSearchResults searchResults={searchArray} key={searchArray.id} addToCollection={addToCollection} loggedIn={props.loggedIn}/>})
-            : <NoSearchResults />
+          {searchState.searching === true
+            ? <Searching />
+            : searchState.searchResults.length > 0
+              ? searchState.searchResults.map(function(searchArray){
+                return <MovieSearchResults searchResults={searchArray} key={searchArray.id} addToCollection={addToCollection} loggedIn={props.loggedIn}/>})
+              : <NoSearchResults />
           }
         </div>
         </div>

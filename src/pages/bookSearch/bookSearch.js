@@ -19,7 +19,6 @@ function BookSearch(props) {
     if(searchState.searchType === "title"){
       API.titleSearch(searchState.searchTerm, index)
         .then(function (res){
-          setSearchState({ ...searchState, searching: true });
           if(res.data.totalItems > 0){
             if(rawResults.length > 0){
               rawResults = rawResults.concat(res.data.items);
@@ -215,6 +214,7 @@ function BookSearch(props) {
     let results = 0;
     let index = 0;
     let rawResults = [];
+    setSearchState({ ...searchState, searching: true });
     getAllSearch(results, index, rawResults);
   }
 
