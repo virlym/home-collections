@@ -1,7 +1,7 @@
-# **hw19-user-directory**
-  ![Contents](https://img.shields.io/github/languages/top/virlym/hw19-user-directory)
-  ![Last-Commit](https://img.shields.io/github/last-commit/virlym/hw19-user-directory)
-  ![License](https://img.shields.io/github/license/virlym/hw19-user-directory)
+# **home-collections**
+  ![Contents](https://img.shields.io/github/languages/top/virlym/home-collections)
+  ![Last-Commit](https://img.shields.io/github/last-commit/virlym/home-collections)
+  ![License](https://img.shields.io/github/license/virlym/home-collections)
   ## **Description**
   Reworking the user directory into a home collection tracker for books, cds, and dvds. The readme will be updated when enough of the user directory has been reworked. 
 
@@ -23,7 +23,7 @@
   
   1. Clone the repo
   ```sh
-  git clone https://github.com/virlym/hw19-user-directory.git
+  git clone https://github.com/virlym/home-collections.git
   ``` 
   2. Install NPM packages
   ```sh
@@ -32,7 +32,7 @@
   <br><br>
   
   ## **Usage**
-  [Deployed link](https://hw19-user-directory.herokuapp.com/)
+  [Deployed link](https://home-collections.herokuapp.com/)
 
   ![Start](./public/preview.PNG)
   <br><br>
