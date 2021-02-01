@@ -58,40 +58,58 @@ function App() {
       setPageState({ currentPage: "landing" });
     }
     fetchUserData();
-  }, []);
+    if(userState.isLoggedIn){
+      fillProfile();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userState.isLoggedIn]);
 
   function fetchUserData() {
     const token = localStorage.getItem("token");
-    API.getProfile(token).then(function (profileData) {
-      if (profileData) {
-        setUserState({
-          email: profileData.email,
-          token: token,
-          id: profileData.id,
-          isLoggedIn: true,
-          loginError: "",
-          signUpError: "",
-          books: [],
-          movies: [],
-          albums: []
-        });
-        fillProfile();
-      }
-      else {
-        localStorage.removeItem("token");
-        setUserState({
-          email: "",
-          token: "",
-          id: "",
-          isLoggedIn: false,
-          loginError: "",
-          signUpError: "",
-          books: [],
-          movies: [],
-          albums: []
-        });
-      }
-    });
+    if(!token){
+      setUserState({
+        email: "",
+        token: "",
+        id: "",
+        isLoggedIn: false,
+        loginError: "",
+        signUpError: "",
+        books: [],
+        movies: [],
+        albums: []
+      });
+    }
+    else{
+      API.getProfile(token).then(function (profileData) {
+        if (profileData) {
+          setUserState({
+            email: profileData.email,
+            token: token,
+            id: profileData.id,
+            isLoggedIn: true,
+            loginError: "",
+            signUpError: "",
+            books: [],
+            movies: [],
+            albums: []
+          });
+        }
+        else {
+          localStorage.removeItem("token");
+          setUserState({
+            email: "",
+            token: "",
+            id: "",
+            isLoggedIn: false,
+            loginError: "",
+            signUpError: "",
+            books: [],
+            movies: [],
+            albums: []
+          });
+        }
+      });
+    }
   }
 
   function fillProfile() {
@@ -127,9 +145,9 @@ function App() {
           <Route path="/mybooks"> <MusicSearch /> </Route>
           <Route path="/mymovies"> <MusicSearch /> </Route>
           <Route path="/mymusic"> <MusicSearch /> </Route>
-          <Route path="/login"> <Login /> </Route>
-          <Route path="/signup"> <Signup /> </Route>
-          <Route path="/logout"> <Logout /> </Route>
+          <Route path="/login"> <Login setPageState={setPageState} setUserState={setUserState} userState={userState} fillProfile={fillProfile}/> </Route>
+          <Route path="/signup"> <Signup setPageState={setPageState} /> </Route>
+          <Route path="/logout"> <Logout setPageState={setPageState} /> </Route>
           <Route exact path="/"> <Landing /> </Route>
           <Route path="*"> <Landing /> </Route>
 

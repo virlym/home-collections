@@ -1,0 +1,19 @@
+.search-style {
+  margin: 50px;
+  text-align: center;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 500px;
+  padding: 15px;
+  margin: 0 auto;
+  border-style: solid;
+  border-color: slategrey;
+}
+
+.error-message{
+  color: red;
+  text-align: center;
+  font-size: 20px;
+}

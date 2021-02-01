@@ -1,7 +1,7 @@
 import React from "react";
 import "./signup.css";
 
-function Signup() {
+function Signup(props) {
   return (
     <div>
       <h1>Signup Page</h1>

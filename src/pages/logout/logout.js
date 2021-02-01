@@ -1,7 +1,7 @@
 import React from "react";
 import "./logout.css";
 
-function Logout() {
+function Logout(props) {
   return (
     <div>
       <h1>Logout Page</h1>
