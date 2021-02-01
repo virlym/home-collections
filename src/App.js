@@ -32,10 +32,82 @@ function App() {
     else if(window.location.pathname === "/music"){
       setPageState({ currentPage: "music" });
     }
+    else if(window.location.pathname === "/mybooks"){
+      setPageState({ currentPage: "mybooks" });
+    }
+    else if(window.location.pathname === "/mymovies"){
+      setPageState({ currentPage: "mymovies" });
+    }
+    else if(window.location.pathname === "/mymusic"){
+      setPageState({ currentPage: "mymusic" });
+    }
+    else if(window.location.pathname === "/login"){
+      setPageState({ currentPage: "login" });
+    }
+    else if(window.location.pathname === "/signup"){
+      setPageState({ currentPage: "signup" });
+    }
+    else if(window.location.pathname === "/logout"){
+      setPageState({ currentPage: "logout" });
+    }
     else{
       setPageState({ currentPage: "landing" });
     }
+    fetchUserData();
   }, []);
+
+  function fetchUserData() {
+    const token = localStorage.getItem("token");
+    API.getProfile(token).then(function (profileData) {
+      if (profileData) {
+        setUserState({
+          email: profileData.email,
+          token: token,
+          id: profileData.id,
+          isLoggedIn: true,
+          loginError: "",
+          signUpError: "",
+          books: [],
+          movies: [],
+          albums: []
+        });
+        fillProfile();
+      }
+      else {
+        localStorage.removeItem("token");
+        setUserState({
+          email: "",
+          token: "",
+          id: "",
+          isLoggedIn: false,
+          loginError: "",
+          signUpError: "",
+          books: [],
+          movies: [],
+          albums: []
+        });
+      }
+    });
+  }
+
+  function fillProfile() {
+    const token = localStorage.getItem("token");
+    API.getUserBooks(token).then(function (userBooks) {
+      if (userBooks) {
+        setUserState({ ...userState, books: userBooks });
+      }
+      API.getUserMovies(token).then(function (userMovies) {
+        if (userMovies) {
+          setUserState({ ...userState, movies: userMovies });
+        }
+        API.getUserMusic(token).then(function (userAlbums) {
+          if (userAlbums) {
+            setUserState({ ...userState, albums: userAlbums });
+          }
+        });
+      });
+    });
+  }
 
   return (
     <div>

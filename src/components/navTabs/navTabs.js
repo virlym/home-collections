@@ -32,8 +32,8 @@ function NavTabs(props) {
             <NavDropdown.Item as={Link} to="/mybooks" onClick={function(){ props.setPageState({currentPage: "mybooks"}); setExpanded(false) }} className={props.currentPage === "mybooks" ? "active bg-dark text-light" : "text-light"}>My Books</NavDropdown.Item>
             <NavDropdown.Item as={Link} to="/mymovies" onClick={function(){ props.setPageState({currentPage: "mymovies"}); setExpanded(false) }} className={props.currentPage === "mymovies" ? "active bg-dark text-light" : "text-light"}>My Movies</NavDropdown.Item>
             <NavDropdown.Item as={Link} to="/mymusic" onClick={function(){ props.setPageState({currentPage: "mymusic"}); setExpanded(false) }} className={props.currentPage === "mymusic" ? "active bg-dark text-light" : "text-light"}>My Music</NavDropdown.Item>
-            <NavDropdown.Divider style={{borderStyle: "solid", borderWidth: "1px", borderColor: "rgba(0,0,0,.15)"}} />
-            <NavDropdown.Item as={Link} to="/profile" onClick={function(){ props.setPageState({currentPage: "profile"}); setExpanded(false) }} className={props.currentPage === "profile" ? "active bg-dark text-light" : "text-light"}>Profile</NavDropdown.Item>
+            {/* <NavDropdown.Divider style={{borderStyle: "solid", borderWidth: "1px", borderColor: "rgba(0,0,0,.15)"}} />
+            <NavDropdown.Item as={Link} to="/profile" onClick={function(){ props.setPageState({currentPage: "profile"}); setExpanded(false) }} className={props.currentPage === "profile" ? "active bg-dark text-light" : "text-light"}>Profile</NavDropdown.Item> */}
           </NavDropdown>
         : 
           null
@@ -43,7 +43,7 @@ function NavTabs(props) {
       <Nav onClick={function(){setExpanded(false)}}>
         {props.loggedIn === false
         ?
-          <Nav.Link as={Link} to="/login" onClick={function(){ props.setPageState({currentPage: "login"})}} className={props.currentPage === "login" ? "nav-link active bg-dark text-light" : "nav-link text-light"}>Login</Nav.Link>
+          <Nav.Link as={Link} to="/login" onClick={function(){ props.setPageState({currentPage: "login"})}} className={props.currentPage === "login" || props.currentPage === "signup" ? "nav-link active bg-dark text-light" : "nav-link text-light"}>Login</Nav.Link>
         :
           <Nav.Link as={Link} to="/logout" onClick={function(){ props.setPageState({currentPage: "logout"})}} className={props.currentPage === "logout" ? "nav-link active bg-dark text-light" : "nav-link text-light"}>Logout</Nav.Link>
         }

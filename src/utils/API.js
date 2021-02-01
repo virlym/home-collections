@@ -31,6 +31,19 @@ const API = {
         return null;
     });
   },
+  // requires: bearer token(string)
+  getProfile: function (token) {
+      return fetch(`${URL_PREFIX}api/users/profile`, {
+          method: "GET",
+          headers: {
+              "authorization": `Bearer ${token}`
+          },
+      }).then(function (res) {
+          return res.json();
+      }).catch(function (err) {
+          return null;
+      });
+  },
   // expects: user to be logged in
   // requires: bearer token(string) 
   disableUser: function (token) {
