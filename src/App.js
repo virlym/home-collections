@@ -1,12 +1,16 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import NavTabs from "./components/navTabs/navTabs";
-import Landing from "./pages/landing/landing";
-import BookSearch from "./pages/bookSearch/bookSearch";
-import MovieSearch from "./pages/movieSearch/movieSearch";
-import MusicSearch from "./pages/musicSearch/musicSearch";
+import NavTabs from "./components/navTabs/navTabs.js";
+import Landing from "./pages/landing/landing.js";
+import BookSearch from "./pages/bookSearch/bookSearch.js";
+import MovieSearch from "./pages/movieSearch/movieSearch.js";
+import MusicSearch from "./pages/musicSearch/musicSearch.js";
+import Login from "./pages/login/login.js";
+import Signup from "./pages/signup/signup.js";
+import Logout from "./pages/logout/logout.js";
 import {Helmet} from 'react-helmet';
+import API from "./utils/API.js";
 
 function App() {
   // state to keep track of the current page
@@ -15,7 +19,7 @@ function App() {
   });
 
   const [userState, setUserState] = useState({
-    loggedIn: false,
+    isLoggedIn: false,
     books: [],
     movies: [],
     albums: []
@@ -115,15 +119,17 @@ function App() {
         <body className="bg-dark text-light"/>
       </Helmet>
         <Router>
-          <NavTabs currentPage={pageState.currentPage} setPageState={setPageState} loggedIn={userState.loggedIn}/>
+          <NavTabs currentPage={pageState.currentPage} setPageState={setPageState} loggedIn={userState.isLoggedIn}/>
         <Switch>
-          <Route path="/books"> <BookSearch userBooks={userState.books} loggedIn={userState.loggedIn} /> </Route>
-          <Route path="/movies"> <MovieSearch userMovies={userState.movies} loggedIn={userState.loggedIn} /> </Route>
-          <Route path="/music"> <MusicSearch userAlbums={userState.albums} loggedIn={userState.loggedIn} /> </Route>
+          <Route path="/books"> <BookSearch userBooks={userState.books} loggedIn={userState.isLoggedIn} /> </Route>
+          <Route path="/movies"> <MovieSearch userMovies={userState.movies} loggedIn={userState.isLoggedIn} /> </Route>
+          <Route path="/music"> <MusicSearch userAlbums={userState.albums} loggedIn={userState.isLoggedIn} /> </Route>
           <Route path="/mybooks"> <MusicSearch /> </Route>
           <Route path="/mymovies"> <MusicSearch /> </Route>
           <Route path="/mymusic"> <MusicSearch /> </Route>
-          <Route path="/profile"> <MusicSearch /> </Route>
+          <Route path="/login"> <Login /> </Route>
+          <Route path="/signup"> <Signup /> </Route>
+          <Route path="/logout"> <Logout /> </Route>
           <Route exact path="/"> <Landing /> </Route>
           <Route path="*"> <Landing /> </Route>
 

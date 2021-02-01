@@ -3,6 +3,9 @@
         "Spotify",
         "id",
         "imdb",
+        "mybooks",
+        "mymovies",
+        "mymusic",
         "omdb",
         "webfonts"
     ]

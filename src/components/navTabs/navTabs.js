@@ -26,7 +26,7 @@ function NavTabs(props) {
         <Nav.Link as={Link} to="/music" onClick={function(){ props.setPageState({currentPage: "music"}); setExpanded(false) }} className={props.currentPage === "music" ? "nav-link active bg-dark text-light" : "nav-link text-light"}>
           Music
         </Nav.Link>
-        {props.loggedIn === false
+        {props.loggedIn === true
         ?
           <NavDropdown className={props.currentPage === "mybooks" || props.currentPage === "mymusic" || props.currentPage === "mymovies" ? "active bg-dark text-light" : "bg-info text-light"} title={<span className="text-light"> My Collections </span> } id="collapsible-nav-dropdown" >
             <NavDropdown.Item as={Link} to="/mybooks" onClick={function(){ props.setPageState({currentPage: "mybooks"}); setExpanded(false) }} className={props.currentPage === "mybooks" ? "active bg-dark text-light" : "text-light"}>My Books</NavDropdown.Item>
