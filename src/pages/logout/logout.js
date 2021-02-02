@@ -1,14 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { Modal, Spinner } from 'react-bootstrap';
 import "./logout.css";
 
 function Logout(props) {
+
+  useEffect(function () {
+    if(props.loggingOutState === true){
+      localStorage.clear();
+      props.fetchUserData();
+      if(props.userState.isLoggedIn === false){
+        props.setLoggingOutState( false );
+      }
+    }
+  }, [props.loggingOutState, props.userState.isLoggedIn]);
+
   return (
-    <div>
-      <h1>Logout Page</h1>
-      <p>
-        Hello
-      </p>
-    </div>
+    <Modal show={props.loggingOutState} centered className="center-text">
+      <Modal.Body className="bg-info success-message">
+        Thank you for using Home Collections
+        <br />
+        <Spinner animation="border" variant="primary" role="status">
+          <span className="sr-only">Loading...</span>
+        </Spinner>
+        <br />
+        Please wait while you are logged out
+      </Modal.Body>
+    </Modal>
   );
 }
 

@@ -18,6 +18,8 @@ function App() {
     currentPage: ""
   });
 
+  const [loggingOutState, setLoggingOutState] = useState(false);
+
   const [userState, setUserState] = useState({
     isLoggedIn: false,
     books: [],
@@ -50,9 +52,6 @@ function App() {
     }
     else if(window.location.pathname === "/signup"){
       setPageState({ currentPage: "signup" });
-    }
-    else if(window.location.pathname === "/logout"){
-      setPageState({ currentPage: "logout" });
     }
     else{
       setPageState({ currentPage: "landing" });
@@ -136,27 +135,30 @@ function App() {
       <Helmet>
         <body className="bg-dark text-light"/>
       </Helmet>
-        <Router>
-          <NavTabs currentPage={pageState.currentPage} setPageState={setPageState} loggedIn={userState.isLoggedIn}/>
-        <Switch>
-          <Route path="/books"> <BookSearch userBooks={userState.books} loggedIn={userState.isLoggedIn} /> </Route>
-          <Route path="/movies"> <MovieSearch userMovies={userState.movies} loggedIn={userState.isLoggedIn} /> </Route>
-          <Route path="/music"> <MusicSearch userAlbums={userState.albums} loggedIn={userState.isLoggedIn} /> </Route>
-          <Route path="/mybooks"> <MusicSearch /> </Route>
-          <Route path="/mymovies"> <MusicSearch /> </Route>
-          <Route path="/mymusic"> <MusicSearch /> </Route>
-          <Route path="/login"> <Login setPageState={setPageState} setUserState={setUserState} userState={userState} fillProfile={fillProfile}/> </Route>
-          <Route path="/signup"> <Signup setPageState={setPageState} /> </Route>
-          <Route path="/logout"> <Logout setPageState={setPageState} /> </Route>
-          <Route exact path="/"> <Landing /> </Route>
-          <Route path="*"> <Landing /> </Route>
+      {loggingOutState === true
+        ? <Logout userState={userState} loggingOutState={loggingOutState} setLoggingOutState={setLoggingOutState} fetchUserData={fetchUserData}/>
+        : null
+      }
+      <Router>
+        <NavTabs currentPage={pageState.currentPage} setPageState={setPageState} loggedIn={userState.isLoggedIn} userState={userState} loggingOutState={loggingOutState} setLoggingOutState={setLoggingOutState}/>
+      <Switch>
+        <Route path="/books"> <BookSearch userBooks={userState.books} loggedIn={userState.isLoggedIn} /> </Route>
+        <Route path="/movies"> <MovieSearch userMovies={userState.movies} loggedIn={userState.isLoggedIn} /> </Route>
+        <Route path="/music"> <MusicSearch userAlbums={userState.albums} loggedIn={userState.isLoggedIn} /> </Route>
+        <Route path="/mybooks"> <MusicSearch /> </Route>
+        <Route path="/mymovies"> <MusicSearch /> </Route>
+        <Route path="/mymusic"> <MusicSearch /> </Route>
+        <Route path="/login"> <Login setPageState={setPageState} setUserState={setUserState} userState={userState} fillProfile={fillProfile}/> </Route>
+        <Route path="/signup"> <Signup setPageState={setPageState} /> </Route>
+        <Route exact path="/"> <Landing /> </Route>
+        <Route path="*"> <Landing /> </Route>
 
-        </Switch>
-        </Router>
-        <footer>
-          <small> &copy; 2020 Virlym di Aunel</small>
-        </footer>
-      </div>
+      </Switch>
+      </Router>
+      <footer>
+        <small> &copy; 2020 Virlym di Aunel</small>
+      </footer>
+    </div>
   );
 }
 

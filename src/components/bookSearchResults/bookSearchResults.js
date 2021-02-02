@@ -26,7 +26,10 @@ function BookSearchResults(props) {
                                 ? <> {props.searchResults.subtitle} <br /> </>
                                 : null
                             }
-                            ({props.searchResults.published.substring(0, 4)}) <br /> 
+                            {props.searchResults.published
+                                ? <> ({props.searchResults.published.substring(0, 4)}) <br />  </>
+                                : null
+                            }
                             {authors}</p>
                         </div>
                     </div>
