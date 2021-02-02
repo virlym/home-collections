@@ -46,54 +46,36 @@ function MovieSearch(props) {
     for (let i = 0; i < rawResults.length; i++) {
       if (searchState.searchType === "movies") {
         if (rawResults[i].Type === "movie") {
-          let hasMovie = false;
-          for (let j = 0; j < props.userMovies.length; j++) {
-            if (props.userMovies[j].id === rawResults[i].imdbID) {
-              hasMovie = true;
-            }
-          }
           let imgLink = rawResults[i].Poster;
           if (imgLink === "N/A") {
             imgLink = "https://123moviesfree.zone/no-poster.png"
           }
-          movieList.push({ id: rawResults[i].imdbID, title: rawResults[i].Title, year: rawResults[i].Year, poster: imgLink, owned: hasMovie });
+          movieList.push({ id: rawResults[i].imdbID, title: rawResults[i].Title, year: rawResults[i].Year, poster: imgLink, owned: false });
         }
       }
 
       else if (searchState.searchType === "series") {
         if (rawResults[i].Type === "series") {
-          let hasMovie = false;
-          for (let j = 0; j < props.userMovies.length; j++) {
-            if (props.userMovies[j].id === rawResults[i].imdbID) {
-              hasMovie = true;
-            }
-          }
           let imgLink = rawResults[i].Poster;
           if (imgLink === "N/A") {
             imgLink = "https://123moviesfree.zone/no-poster.png"
           }
-          movieList.push({ id: rawResults[i].imdbID, title: rawResults[i].Title, year: rawResults[i].Year, poster: imgLink, owned: hasMovie });
+          movieList.push({ id: rawResults[i].imdbID, title: rawResults[i].Title, year: rawResults[i].Year, poster: imgLink, owned: false });
         }
       }
 
       else {
         if ((rawResults[i].Type === "movie") || (rawResults[i].Type === "series")) {
-          let hasMovie = false;
-          for (let j = 0; j < props.userMovies.length; j++) {
-            if (props.userMovies[j].id === rawResults[i].imdbID) {
-              hasMovie = true;
-            }
-          }
           let imgLink = rawResults[i].Poster;
           if (imgLink === "N/A") {
             imgLink = "https://123moviesfree.zone/no-poster.png"
           }
-          movieList.push({ id: rawResults[i].imdbID, title: rawResults[i].Title, year: rawResults[i].Year, poster: imgLink, owned: hasMovie });
+          movieList.push({ id: rawResults[i].imdbID, title: rawResults[i].Title, year: rawResults[i].Year, poster: imgLink, owned: false });
         }
       }
 
     }
-    
+
     let uniqueMovieList = Array.from(new Set(movieList.map(function (data) {
       return data.id
     })))
@@ -102,6 +84,15 @@ function MovieSearch(props) {
           return data.id === id
         })
       });
+
+      for(let i = 0; i < uniqueMovieList.length; i++){
+        for (let j = 0; j < props.userMovies.length; j++) {
+          if (props.userMovies[j].omdb_id === uniqueMovieList[i].id) {
+            uniqueMovieList[i].owned = true;
+          }
+        }
+      }
+
     setSearchState({ ...searchState, searching: false, searchResults: uniqueMovieList });
   }
 

@@ -106,12 +106,6 @@ function MusicSearch(props) {
     if((searchState.searchType === "artist")||(searchState.searchType === "album")){
       for(let i = 0; i < rawResults.length; i++){
         if(rawResults[i] !== undefined){
-          let hasAlbum = false;
-          for(let j = 0; j < props.userAlbums.length; j++){
-            if(props.userAlbums[j].id === rawResults[i].id){
-              hasAlbum = true;
-            }
-          }
           let imgLink = "";
           if(rawResults[i].images !== undefined){
             imgLink = rawResults[i].images[0].url;
@@ -119,7 +113,7 @@ function MusicSearch(props) {
           else{
             imgLink = "https://i.dlpng.com/static/png/6331252_preview.png"
           }
-          albumList.push({id: rawResults[i].id, artists: rawResults[i].artists, album: rawResults[i].name, albumArt: imgLink, release: rawResults[i].release_date, owned: hasAlbum});
+          albumList.push({id: rawResults[i].id, artists: rawResults[i].artists, album: rawResults[i].name, albumArt: imgLink, release: rawResults[i].release_date, owned: false});
         }
       }
       let uniqueAlbumList = Array.from(new Set(albumList.map(function(data){ 
@@ -135,12 +129,6 @@ function MusicSearch(props) {
     else{
       for(let i = 0; i < rawResults.length; i++){
         if(rawResults[i] !== undefined){
-          let hasAlbum = false;
-          for(let j = 0; j < props.userAlbums.length; j++){
-            if(props.userAlbums[j].id === rawResults[i].id){
-              hasAlbum = true;
-            }
-          }
           let imgLink = "";
           if(rawResults[i].album.images !== undefined){
             imgLink = rawResults[i].album.images[0].url;
@@ -148,7 +136,7 @@ function MusicSearch(props) {
           else{
             imgLink = "https://hrce.insigniails.com/Library/images/~imageCT459526.JPG"
           }
-          albumList.push({id: rawResults[i].album.id, artists: rawResults[i].album.artists, album: rawResults[i].album.name, albumArt: imgLink, release: rawResults[i].album.release_date, owned: hasAlbum});
+          albumList.push({id: rawResults[i].album.id, artists: rawResults[i].album.artists, album: rawResults[i].album.name, albumArt: imgLink, release: rawResults[i].album.release_date, owned: false});
         }
       }
       let uniqueAlbumList = Array.from(new Set(albumList.map(function(data){ 
@@ -159,6 +147,15 @@ function MusicSearch(props) {
           return data.id === id
         })
       });
+
+      for(let i = 0; i < uniqueAlbumList.length; i++){
+        for (let j = 0; j < props.userAlbums.length; j++) {
+          if (props.userAlbums[j].spotify_id === uniqueAlbumList[i].id) {
+            uniqueAlbumList[i].owned = true;
+          }
+        }
+      }
+
       setSearchState({...searchState, searching: false, searchResults: uniqueAlbumList});
     }   
   }

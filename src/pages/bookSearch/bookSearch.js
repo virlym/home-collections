@@ -190,12 +190,6 @@ function BookSearch(props) {
     rawResults = [...new Set(rawResults)];
     for (let i = 0; i < rawResults.length; i++) {
       if (rawResults[i] !== undefined) {
-        let hasBook = false;
-        for (let j = 0; j < props.userBooks.length; j++) {
-          if (props.userBooks[j].id === rawResults[i].id) {
-            hasBook = true;
-          }
-        }
         let imgLink = "";
         if (rawResults[i].volumeInfo.imageLinks !== undefined) {
           imgLink = rawResults[i].volumeInfo.imageLinks.thumbnail;
@@ -203,7 +197,7 @@ function BookSearch(props) {
         else {
           imgLink = "https://hrce.insigniails.com/Library/images/~imageCT459526.JPG"
         }
-        bookList.push({ id: rawResults[i].id, title: rawResults[i].volumeInfo.title, subtitle: rawResults[i].volumeInfo.subtitle, authors: rawResults[i].volumeInfo.authors, cover: imgLink, publisher: rawResults[i].volumeInfo.publisher, published: rawResults[i].volumeInfo.publishedDate, owned: hasBook });
+        bookList.push({ id: rawResults[i].id, title: rawResults[i].volumeInfo.title, subtitle: rawResults[i].volumeInfo.subtitle, authors: rawResults[i].volumeInfo.authors, cover: imgLink, publisher: rawResults[i].volumeInfo.publisher, published: rawResults[i].volumeInfo.publishedDate, owned: false });
       }
     }
     let uniqueBookList = Array.from(new Set(bookList.map(function (data) {
@@ -214,6 +208,15 @@ function BookSearch(props) {
           return data.id === id
         })
       });
+      
+      for(let i = 0; i < uniqueBookList.length; i++){
+        for (let j = 0; j < props.userBooks.length; j++) {
+          if (props.userBooks[j].google_id === uniqueBookList[i].id) {
+            uniqueBookList[i].owned = true;
+          }
+        }
+      }
+
     setSearchState({ ...searchState, searching: false, searchResults: uniqueBookList });
   }
 
