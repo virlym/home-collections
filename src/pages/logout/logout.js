@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Modal, Spinner } from 'react-bootstrap';
 import "./logout.css";
 
@@ -12,6 +12,7 @@ function Logout(props) {
         props.setLoggingOutState( false );
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.loggingOutState, props.userState.isLoggedIn]);
 
   return (

@@ -149,7 +149,7 @@ function App() {
         <Route path="/mymovies"> <MusicSearch /> </Route>
         <Route path="/mymusic"> <MusicSearch /> </Route>
         <Route path="/login"> <Login setPageState={setPageState} setUserState={setUserState} userState={userState} fillProfile={fillProfile}/> </Route>
-        <Route path="/signup"> <Signup setPageState={setPageState} /> </Route>
+        <Route path="/signup"> <Signup setPageState={setPageState} setUserState={setUserState} userState={userState} fillProfile={fillProfile}/> </Route>
         <Route exact path="/"> <Landing /> </Route>
         <Route path="*"> <Landing /> </Route>
 

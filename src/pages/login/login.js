@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import "./login.css";
 import API from "../../utils/API.js";
 
@@ -14,7 +14,7 @@ function Login(props) {
   useEffect(function () {
     if(props.userState.isLoggedIn === true){
       props.setPageState({ currentPage: "landing" });
-      return history.push("/");
+      return history.push("/landing");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.userState]);
@@ -58,7 +58,6 @@ function Login(props) {
       <div className="row">
             <div className="col-12">
               <h1> Login </h1>
-              <>
               <form className="form-signin" onSubmit={handleFormSubmit}>
                 {props.userState.loginError === ""
                   ? <br />
@@ -87,31 +86,15 @@ function Login(props) {
                 />
                 <br />
                 <button className="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+                <br />
+                <div className="center-style">
+                  Don't have an account? 
+                  <br />
+                  <Link to="/signup" onClick={function(){ props.setPageState({currentPage: "signup"})}}>
+                    Click here to sign up
+                  </Link>
+                </div>
               </form>
-              </>
-                {/* <form onSubmit={handleFormSubmit} className="search-style">
-                <div className="row">
-                  <div className="col-2">
-                    <label for="inputEmail"> Email </label>
-                  </div>
-                  <div className="col-10">
-                    <input type="email" class="form-control" id="inputEmail" placeholder="Enter email" />
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-2">
-                    <label for="inputPassword"> Password </label>
-                  </div>
-                  <div className="col-10">
-                    <input type="password" class="form-control" id="inputPassword" placeholder="Password" />
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col-12">
-                    <input type="submit" value="Search" />
-                  </div>
-                </div>
-                </form> */}
             </div>
         </div>
     </div>
