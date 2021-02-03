@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./movieSearch.css";
 import API from "../../utils/MovieAPI.js";
 import Searchbar from "../../components/searchbar/searchbar.js"
@@ -14,6 +14,20 @@ function MovieSearch(props) {
     searching: false
     // {id, title, year, poster, owned (T/F)}
   });
+
+  useEffect(function () {
+    if(props.userMovies){
+      let updatedResults = [...searchState.searchResults];
+      for(let i = 0; i < updatedResults.length; i++){
+        for (let j = 0; j < props.userMovies.length; j++) {
+          if (props.userMovies[j].omdb_id === updatedResults[i].id) {
+            updatedResults[i].owned = true;
+          }
+        }
+      }
+      setSearchState({ ...searchState, searchResults: updatedResults });
+    }
+  }, [props.userState]);
 
   function getAllSearch(results, page, rawResults) {
     API.search(searchState.searchTerm, page)
@@ -112,10 +126,6 @@ function MovieSearch(props) {
     setSearchState({ ...searchState, [name]: value });
   }
 
-  function addToCollection() {
-
-  }
-
   return (
     <div className="container">
 
@@ -138,7 +148,7 @@ function MovieSearch(props) {
             ? <Searching />
             : searchState.searchResults.length > 0
               ? searchState.searchResults.map(function (searchArray) {
-                return <MovieSearchResults searchResults={searchArray} key={searchArray.id} addToCollection={addToCollection} loggedIn={props.loggedIn} />
+                return <MovieSearchResults searchResults={searchArray} key={searchArray.id} loggedIn={props.loggedIn} token={props.token} setUserState={props.setUserState} userState={props.userState} />
               })
               : <NoSearchResults />
           }
