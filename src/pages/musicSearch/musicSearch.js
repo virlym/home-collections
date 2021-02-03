@@ -27,6 +27,7 @@ function MusicSearch(props) {
       }
       setSearchState({ ...searchState, searchResults: updatedResults });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.userState]);
 
   function getAllSearch(results, index, rawResults, token) {
