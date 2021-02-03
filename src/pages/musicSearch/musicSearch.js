@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./musicSearch.css";
 import API from "../../utils/SpotifyAPI.js";
 import Searchbar from "../../components/searchbar/searchbar.js";
@@ -14,6 +14,20 @@ function MusicSearch(props) {
     searching: false
     // {id, artists, album, albumArt, release, owned (T/F)}
   });
+
+  useEffect(function () {
+    if(props.userAlbums){
+      let updatedResults = [...searchState.searchResults];
+      for(let i = 0; i < updatedResults.length; i++){
+        for (let j = 0; j < props.userAlbums.length; j++) {
+          if (props.userAlbums[j].spotify_id === updatedResults[i].id) {
+            updatedResults[i].owned = true;
+          }
+        }
+      }
+      setSearchState({ ...searchState, searchResults: updatedResults });
+    }
+  }, [props.userState]);
 
   function getAllSearch(results, index, rawResults, token) {
     if(searchState.searchType === "artist"){
@@ -183,10 +197,6 @@ function MusicSearch(props) {
     setSearchState({...searchState, [name]: value});
   }
 
-  function addToCollection(){
-
-  }
-
   return (
     <div className="container">
 
@@ -209,7 +219,7 @@ function MusicSearch(props) {
           ? <Searching />
           : searchState.searchResults.length > 0
             ? searchState.searchResults.map(function(searchArray){
-              return <MusicSearchResults searchResults={searchArray} key={searchArray.id} addToCollection={addToCollection} loggedIn={props.loggedIn}/>})
+              return <MusicSearchResults searchResults={searchArray} key={searchArray.id} loggedIn={props.loggedIn} token={props.token} setUserState={props.setUserState} userState={props.userState} />})
             : <NoSearchResults />
           }
         </div>

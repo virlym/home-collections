@@ -1,5 +1,6 @@
 import React from "react";
 import "./musicSearchResults.css";
+import API from "../../utils/API.js";
 
 function MusicSearchResults(props) {
     let artists = "";
@@ -10,6 +11,26 @@ function MusicSearchResults(props) {
             }
             artists = artists + props.searchResults.artists[i].name;
         }
+    }
+
+    function addToCollection(){
+        const musicObj = {
+            spotify_id: props.searchResults.id,
+            album: props.searchResults.album,
+            release: props.searchResults.release,
+            album_art: props.searchResults.albumArt,
+            artist: artists
+        }
+        console.log(musicObj);
+        API.collectMusic(props.token, musicObj).then(function (newAlbum) {
+            if(newAlbum){
+                API.getUserMusic(props.token).then(function (userAlbums) {
+                    if (userAlbums) {
+                      props.setUserState({ ...props.userState, albums: userAlbums });
+                    }
+                });
+            }
+        });
     }
 
     return (
@@ -33,7 +54,7 @@ function MusicSearchResults(props) {
                         <div className="row">
                             <div className="col-12">
                                 {props.searchResults.owned === false
-                                    ? <button onClick={function(){props.addToCollection(props.searchResults.id)}}> Add to Collection </button>
+                                    ? <button onClick={function(){addToCollection()}}> Add to Collection </button>
                                     : <button disabled> Already Owned </button>
                                 }
                             </div>
