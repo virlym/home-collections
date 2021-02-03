@@ -21,7 +21,6 @@ function MusicSearchResults(props) {
             album_art: props.searchResults.albumArt,
             artist: artists
         }
-        console.log(musicObj);
         API.collectMusic(props.token, musicObj).then(function (newAlbum) {
             if(newAlbum){
                 API.getUserMusic(props.token).then(function (userAlbums) {

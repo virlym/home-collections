@@ -6,6 +6,7 @@ import Landing from "./pages/landing/landing.js";
 import BookSearch from "./pages/bookSearch/bookSearch.js";
 import MovieSearch from "./pages/movieSearch/movieSearch.js";
 import MusicSearch from "./pages/musicSearch/musicSearch.js";
+import UserMusic from "./pages/userMusic/userMusic.js";
 import Login from "./pages/login/login.js";
 import Signup from "./pages/signup/signup.js";
 import Logout from "./pages/logout/logout.js";
@@ -147,7 +148,7 @@ function App() {
         <Route path="/music"> <MusicSearch userAlbums={userState.albums} loggedIn={userState.isLoggedIn} token={userState.token} setUserState={setUserState} userState={userState} /> </Route>
         <Route path="/mybooks"> <MusicSearch /> </Route>
         <Route path="/mymovies"> <MusicSearch /> </Route>
-        <Route path="/mymusic"> <MusicSearch /> </Route>
+        <Route path="/mymusic"> <UserMusic userState={userState} setUserState={setUserState} /> </Route>
         <Route path="/login"> <Login setPageState={setPageState} setUserState={setUserState} userState={userState} fillProfile={fillProfile}/> </Route>
         <Route path="/signup"> <Signup setPageState={setPageState} setUserState={setUserState} userState={userState} fillProfile={fillProfile}/> </Route>
         <Route exact path="/"> <Landing /> </Route>

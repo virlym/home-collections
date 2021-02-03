@@ -11,7 +11,6 @@ function SearchResults(props) {
             year: props.searchResults.year,
             poster: props.searchResults.poster
         }
-        console.log(movieObj);
         API.collectMovie(props.token, movieObj).then(function (newMovie) {
             if (newMovie) {
                 API.getUserMovies(props.token).then(function (userMovies) {

@@ -1,5 +1,8 @@
 .album-size {
     width: 130px;
+    border-style: solid;
+    border-color: slategrey;
+    border-width: 1px;
 }
 
 .description-row {

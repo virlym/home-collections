@@ -24,7 +24,6 @@ function BookSearchResults(props) {
             publisher: props.searchResults.publisher || "",
             published: props.searchResults.published || ""
         }
-        console.log(bookObj);
         API.collectBook(props.token, bookObj).then(function (newBook) {
             if(newBook){
                 API.getUserBooks(props.token).then(function (userBooks) {
