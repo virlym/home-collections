@@ -1,8 +1,10 @@
 import React from "react";
 import "./bookSearchResults.css";
+import API from "../../utils/API.js";
 
 function BookSearchResults(props) {
     let authors = "";
+
     if(props.searchResults.authors){
         for(let i = 0; i < props.searchResults.authors.length; i++){
             if(i > 0){
@@ -10,6 +12,28 @@ function BookSearchResults(props) {
             }
             authors = authors + props.searchResults.authors[i];
         }
+    }
+
+    function addToCollection(){
+        const bookObj = {
+            google_id: props.searchResults.id,
+            title: props.searchResults.title,
+            subtitle: props.searchResults.subtitle || "",
+            author: authors,
+            cover: props.searchResults.cover,
+            publisher: props.searchResults.publisher || "",
+            published: props.searchResults.published || ""
+        }
+        console.log(bookObj);
+        API.collectBook(props.token, bookObj).then(function (newBook) {
+            if(newBook){
+                API.getUserBooks(props.token).then(function (userBooks) {
+                    if (userBooks) {
+                      props.setUserState({ ...props.userState, books: userBooks });
+                    }
+                });
+            }
+        });
     }
 
     return (
@@ -40,7 +64,7 @@ function BookSearchResults(props) {
                         <div className="row">
                             <div className="col-12">
                                 {props.searchResults.owned === false
-                                    ? <button onClick={function(){props.addToCollection(props.searchResults.id)}}> Add to Collection </button>
+                                    ? <button onClick={function(){addToCollection()}}> Add to Collection </button>
                                     : <button disabled> Already Owned </button>
                                 }
                             </div>

@@ -142,7 +142,7 @@ function App() {
       <Router>
         <NavTabs currentPage={pageState.currentPage} setPageState={setPageState} loggedIn={userState.isLoggedIn} userState={userState} loggingOutState={loggingOutState} setLoggingOutState={setLoggingOutState}/>
       <Switch>
-        <Route path="/books"> <BookSearch userBooks={userState.books} loggedIn={userState.isLoggedIn} /> </Route>
+        <Route path="/books"> <BookSearch userBooks={userState.books} loggedIn={userState.isLoggedIn} token={userState.token} setUserState={setUserState} userState={userState}/> </Route>
         <Route path="/movies"> <MovieSearch userMovies={userState.movies} loggedIn={userState.isLoggedIn} /> </Route>
         <Route path="/music"> <MusicSearch userAlbums={userState.albums} loggedIn={userState.isLoggedIn} /> </Route>
         <Route path="/mybooks"> <MusicSearch /> </Route>
