@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./userMusic.css";
 import API from "../../utils/SpotifyAPI.js";
-import Searchbar from "../../components/searchbar/searchbar.js";
+import FilterBar from "../../components/filterBar/filterBar.js";
 import MusicCollection from "../../components/musicCollection/musicCollection.js"
 import NoSearchResults from "../../components/noSearchResults.js";
 import Searching from "../../components/searching.js";
@@ -209,8 +209,7 @@ function UserMusic(props) {
           </div>
         </div>
 
-        {/* need a filter bar instead */}
-        {/* <Searchbar searchAPI={searchMusic} handleSearchInputChange={handleMusicSearchInputChange} searchState={searchState} searchType="music"/> */}
+        <FilterBar searchAPI={searchMusic} handleSearchInputChange={handleMusicSearchInputChange} searchState={searchState} searchType="music"/>
 
         <br />
 
