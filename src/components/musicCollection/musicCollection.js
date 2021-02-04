@@ -31,10 +31,10 @@ function MusicCollection(props) {
               </p>
             </div>
           </div>
-          </div>
-          <div className="col-lg-4 col-md-12 my-auto">
+        </div>
+        <div className="col-lg-4 col-md-12 my-auto">
           <button onClick={function () { removeFromCollection() }}> Remove </button>
-          </div>
+        </div>
       </div>
       <hr className="slate-hr" />
     </div>

@@ -139,6 +139,15 @@ function MusicSearch(props) {
           return data.id === id
         })
       });
+
+      for(let i = 0; i < uniqueAlbumList.length; i++){
+        for (let j = 0; j < props.userAlbums.length; j++) {
+          if (props.userAlbums[j].spotify_id === uniqueAlbumList[i].id) {
+            uniqueAlbumList[i].owned = true;
+          }
+        }
+      }
+
       setSearchState({...searchState, searching: false, searchResults: uniqueAlbumList});
     }
     else{
@@ -163,6 +172,7 @@ function MusicSearch(props) {
         })
       });
 
+      console.log("hi");
       for(let i = 0; i < uniqueAlbumList.length; i++){
         for (let j = 0; j < props.userAlbums.length; j++) {
           if (props.userAlbums[j].spotify_id === uniqueAlbumList[i].id) {
