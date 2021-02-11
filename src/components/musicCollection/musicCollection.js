@@ -26,7 +26,7 @@ function MusicCollection(props) {
           <div className="row description-row">
             <div className="col-12">
               <p> {props.collection.album} <br />
-                            ({props.collection.release.substring(0, 4)}) <br />
+                ({props.collection.release.substring(0, 4)}) <br />
                 {props.collection.artist}
               </p>
             </div>

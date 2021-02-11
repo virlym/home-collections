@@ -15,7 +15,7 @@ function FilterBar(props) {
                         type="text"
                         placeholder="Filter Term"
                     />
-                    <button className="input-group-append input-group-text"> Clear </button>
+                    <button className="input-group-append input-group-text" onClick={function(){ props.setFilterState({ ...props.filterState, filterTerm: ""})}} > Clear </button>
                 </div>
             </div>
         </div>
