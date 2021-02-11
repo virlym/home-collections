@@ -7,6 +7,7 @@ import BookSearch from "./pages/bookSearch/bookSearch.js";
 import MovieSearch from "./pages/movieSearch/movieSearch.js";
 import MusicSearch from "./pages/musicSearch/musicSearch.js";
 import UserMusic from "./pages/userMusic/userMusic.js";
+import UserBooks from "./pages/userBooks/userBooks.js";
 import Login from "./pages/login/login.js";
 import Signup from "./pages/signup/signup.js";
 import Logout from "./pages/logout/logout.js";
@@ -114,18 +115,22 @@ function App() {
 
   function fillProfile() {
     const token = localStorage.getItem("token");
+    let bookResults = [];
+    let movieResults = [];
+    let musicResults = [];
     API.getUserBooks(token).then(function (userBooks) {
       if (userBooks) {
-        setUserState({ ...userState, books: userBooks });
+        bookResults = [ ...userBooks ];
       }
       API.getUserMovies(token).then(function (userMovies) {
         if (userMovies) {
-          setUserState({ ...userState, movies: userMovies });
+          movieResults = [ ...userMovies ];
         }
         API.getUserMusic(token).then(function (userAlbums) {
           if (userAlbums) {
-            setUserState({ ...userState, albums: userAlbums });
+            musicResults = [ ...userAlbums ];
           }
+          setUserState({ ...userState, books: bookResults, movies: movieResults, albums: musicResults });
         });
       });
     });
@@ -146,7 +151,7 @@ function App() {
         <Route path="/books"> <BookSearch userBooks={userState.books} loggedIn={userState.isLoggedIn} token={userState.token} setUserState={setUserState} userState={userState}/> </Route>
         <Route path="/movies"> <MovieSearch userMovies={userState.movies} loggedIn={userState.isLoggedIn} token={userState.token} setUserState={setUserState} userState={userState} /> </Route>
         <Route path="/music"> <MusicSearch userAlbums={userState.albums} loggedIn={userState.isLoggedIn} token={userState.token} setUserState={setUserState} userState={userState} /> </Route>
-        <Route path="/mybooks"> <MusicSearch /> </Route>
+        <Route path="/mybooks"> <UserBooks userState={userState} setUserState={setUserState} /> </Route>
         <Route path="/mymovies"> <MusicSearch /> </Route>
         <Route path="/mymusic"> <UserMusic userState={userState} setUserState={setUserState} /> </Route>
         <Route path="/login"> <Login setPageState={setPageState} setUserState={setUserState} userState={userState} fillProfile={fillProfile}/> </Route>
