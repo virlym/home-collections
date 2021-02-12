@@ -21,9 +21,8 @@ const API = {
   loginUser: function (info) {
     return fetch(`${URL_PREFIX}api/users/login`, {
         method: "POST",
-        mode: "cors",
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: JSON.stringify(info)
     }).then(function (res) {
