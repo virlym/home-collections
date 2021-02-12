@@ -22,7 +22,8 @@ const API = {
     return fetch(`${URL_PREFIX}api/users/login`, {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': `${URL_PREFIX}api/users/login`
         },
         body: JSON.stringify(info)
     }).then(function (res) {
