@@ -22,8 +22,7 @@ const API = {
     return fetch(`${URL_PREFIX}api/users/login`, {
         method: "POST",
         headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Access-Control-Allow-Origin': "https://home-collections-api.herokuapp.com/"
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(info)
     }).then(function (res) {
