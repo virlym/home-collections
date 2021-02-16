@@ -1,5 +1,6 @@
-// const URL_PREFIX = "http://localhost:8080/"
-const URL_PREFIX = "https://home-collections-api.herokuapp.com/"
+const URL_PREFIX = "http://localhost:8080/"
+// const URL_PREFIX = "https://home-collections-api.herokuapp.com/"
+
 
 const API = {
   //////////////////////////// User Calls ////////////////////////////
@@ -28,6 +29,8 @@ const API = {
     }).then(function (res) {
         return res.json();
     }).catch(function (err) {
+        console.log("login failed");
+        console.log(err);
         return null;
     });
   },
@@ -39,6 +42,9 @@ const API = {
               "authorization": `Bearer ${token}`
           },
       }).then(function (res) {
+        if(res.status === 401){
+            window.location.href = "/expired";
+        }
           return res.json();
       }).catch(function (err) {
           return null;
@@ -54,6 +60,9 @@ const API = {
             "authorization": `Bearer ${token}`
         }
     }).then(function (res) {
+        if(res.status === 401){
+            window.location.href = "/expired";
+        }
         return res.json();
     }).catch(function (err) {
         return null;
@@ -71,6 +80,9 @@ const API = {
             "authorization": `Bearer ${token}`
         }
     }).then(function (res) {
+        if(res.status === 401){
+            window.location.href = "/expired";
+        }
         return res.json();
     }).catch(function (err) {
         return null;
@@ -87,6 +99,9 @@ const API = {
         },
         body: JSON.stringify(info)
     }).then(function (res) {
+        if(res.status === 401){
+            window.location.href = "/expired";
+        }
         return res.json();
     }).catch(function (err) {
         return null;
@@ -101,6 +116,9 @@ const API = {
             "authorization": `Bearer ${token}`
         }
     }).then(function (res) {
+        if(res.status === 401){
+            window.location.href = "/expired";
+        }
         return res.json();
     }).catch(function (err) {
         return null;
@@ -118,6 +136,9 @@ const API = {
             "authorization": `Bearer ${token}`
         }
     }).then(function (res) {
+        if(res.status === 401){
+            window.location.href = "/expired";
+        }
         return res.json();
     }).catch(function (err) {
         return null;
@@ -134,6 +155,9 @@ const API = {
         },
         body: JSON.stringify(info)
     }).then(function (res) {
+        if(res.status === 401){
+            window.location.href = "/expired";
+        }
         return res.json();
     }).catch(function (err) {
         return null;
@@ -150,6 +174,9 @@ const API = {
         },
         body: JSON.stringify(info)
     }).then(function (res) {
+        if(res.status === 401){
+            window.location.href = "/expired";
+        }
         return res.json();
     }).catch(function (err) {
         return null;
@@ -164,6 +191,9 @@ const API = {
             "authorization": `Bearer ${token}`
         }
     }).then(function (res) {
+        if(res.status === 401){
+            window.location.href = "/expired";
+        }
         return res.json();
     }).catch(function (err) {
         return null;
@@ -181,6 +211,9 @@ const API = {
             "authorization": `Bearer ${token}`
         }
     }).then(function (res) {
+        if(res.status === 401){
+            window.location.href = "/expired";
+        }
         return res.json();
     }).catch(function (err) {
         return null;
@@ -197,6 +230,9 @@ const API = {
         },
         body: JSON.stringify(info)
     }).then(function (res) {
+        if(res.status === 401){
+            window.location.href = "/expired";
+        }
         return res.json();
     }).catch(function (err) {
         return null;
@@ -211,6 +247,9 @@ const API = {
             "authorization": `Bearer ${token}`
         }
     }).then(function (res) {
+        if(res.status === 401){
+            window.location.href = "/expired";
+        }
         return res.json();
     }).catch(function (err) {
         return null;

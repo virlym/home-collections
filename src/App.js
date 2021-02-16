@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import NavTabs from "./components/navTabs/navTabs.js";
 import Landing from "./pages/landing/landing.js";
+import Expired from "./pages/expired/expired.js";
 import BookSearch from "./pages/bookSearch/bookSearch.js";
 import MovieSearch from "./pages/movieSearch/movieSearch.js";
 import MusicSearch from "./pages/musicSearch/musicSearch.js";
@@ -55,6 +56,9 @@ function App() {
     }
     else if(window.location.pathname === "/signup"){
       setPageState({ currentPage: "signup" });
+    }
+    else if(window.location.pathname === "/expired"){
+      setPageState({ currentPage: "expired" });
     }
     else{
       setPageState({ currentPage: "landing" });
@@ -157,6 +161,8 @@ function App() {
         <Route path="/mymusic"> <UserMusic userState={userState} setUserState={setUserState} /> </Route>
         <Route path="/login"> <Login setPageState={setPageState} setUserState={setUserState} userState={userState} fillProfile={fillProfile}/> </Route>
         <Route path="/signup"> <Signup setPageState={setPageState} setUserState={setUserState} userState={userState} fillProfile={fillProfile}/> </Route>
+        <Route path="/expired"> <Expired setUserState={setUserState} userState={userState} /> </Route>
+        <Route path="/landing"> <Landing /> </Route>
         <Route exact path="/"> <Landing /> </Route>
         <Route path="*"> <Landing /> </Route>
 
