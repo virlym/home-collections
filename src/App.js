@@ -162,9 +162,9 @@ function App() {
         <Route path="/login"> <Login setPageState={setPageState} setUserState={setUserState} userState={userState} fillProfile={fillProfile}/> </Route>
         <Route path="/signup"> <Signup setPageState={setPageState} setUserState={setUserState} userState={userState} fillProfile={fillProfile}/> </Route>
         <Route path="/expired"> <Expired setUserState={setUserState} userState={userState} /> </Route>
-        <Route path="/landing"> <Landing /> </Route>
-        <Route exact path="/"> <Landing /> </Route>
-        <Route path="*"> <Landing /> </Route>
+        <Route path="/landing"> <Landing setPageState={setPageState} /> </Route>
+        <Route exact path="/"> <Landing setPageState={setPageState} /> </Route>
+        <Route path="*"> <Landing setPageState={setPageState} /> </Route>
 
       </Switch>
       </Router>

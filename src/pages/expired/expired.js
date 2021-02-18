@@ -1,9 +1,7 @@
 import React, { useEffect }from "react";
-import { useHistory } from 'react-router-dom';
 import "./expired.css";
 
 function Expired(props) {
-  let history = useHistory();
 
   useEffect(function () {
     if(props.userState){

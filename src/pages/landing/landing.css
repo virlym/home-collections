@@ -1,0 +1,11 @@
+.icon-size {
+  width: 130px;
+  border-style: solid;
+  border-color: slategrey;
+  border-width: 1px;
+  text-align: center;
+}
+
+.icon-container {
+  padding: 50px;
+}
