@@ -6,6 +6,19 @@
   text-align: center;
 }
 
+.icon-space {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
 .icon-container {
-  padding: 50px;
+  padding: 40px;
+}
+
+figcaption{
+ font-size: 12px;
+}
+
+.app-info{
+  text-align: center;
 }
