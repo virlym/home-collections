@@ -9,7 +9,8 @@ function SearchResults(props) {
             omdb_id: props.searchResults.id,
             title: props.searchResults.title,
             year: props.searchResults.year,
-            poster: props.searchResults.poster
+            poster: props.searchResults.poster,
+            comment: ""
         }
         API.collectMovie(props.token, movieObj).then(function (newMovie) {
             if (newMovie) {

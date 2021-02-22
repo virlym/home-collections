@@ -21,7 +21,8 @@ function MovieCollection(props) {
     if(event.target.value === "false"){
       value = true
     }
-    let data = { dvd: value, blue_ray: props.collection.blue_ray }
+    const comment = props.collection.comments || "";
+    let data = { dvd: value, blue_ray: props.collection.blue_ray, comments: comment }
     API.editMovie(props.userState.token, props.collection.id, data).then(function (editMovie) {
       if (editMovie) {
         API.getUserMovies(props.userState.token).then(function (userMovies) {
@@ -38,7 +39,8 @@ function MovieCollection(props) {
     if(event.target.value === "false"){
       value = true
     }
-    let data = { dvd: props.collection.dvd, blue_ray: value }
+    const comment = props.collection.comments || "";
+    let data = { dvd: props.collection.dvd, blue_ray: value, comments: comment }
     API.editMovie(props.userState.token, props.collection.id, data).then(function (editMovie) {
       if (editMovie) {
         API.getUserMovies(props.userState.token).then(function (userMovies) {
