@@ -52,6 +52,19 @@ function MovieCollection(props) {
     });
   }
 
+  function commentsChange(comment) {
+    let data = { dvd: props.collection.dvd, blue_ray: props.collection.blue_ray, comments: comment }
+    API.editMovie(props.userState.token, props.collection.id, data).then(function (editMovie) {
+      if (editMovie) {
+        API.getUserMovies(props.userState.token).then(function (userMovies) {
+          if (userMovies) {
+            props.setUserState({ ...props.userState, movies: userMovies });
+          }
+        });
+      }
+    });
+  }
+
   return (
     <div>
       <div className="row">
