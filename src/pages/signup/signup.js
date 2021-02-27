@@ -82,7 +82,7 @@ function Signup(props) {
                   onChange={handleInputChange}
                 />
                 <br />
-                <label>Password:</label>
+                <label>Password (6-24 letters/numbers):</label>
                 <input 
                   type="password" 
                   className="form-control" 
