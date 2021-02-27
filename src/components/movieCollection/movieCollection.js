@@ -24,7 +24,6 @@ function MovieCollection(props) {
 
   function openModal(){
     setCommentState({...commentState, modal: true});
-    console.log(commentState.commentUpdate);
   }
 
   function handleInputChange(event){
