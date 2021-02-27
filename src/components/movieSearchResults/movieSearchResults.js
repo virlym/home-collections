@@ -5,7 +5,7 @@ import API from "../../utils/API.js";
 
 function SearchResults(props) {
     const [commentState, setCommentState] = useState({
-        comment: "",
+        comments: "",
         modal: false,
         dvd: false,
         blue_ray: false
@@ -17,15 +17,17 @@ function SearchResults(props) {
             title: props.searchResults.title,
             year: props.searchResults.year,
             poster: props.searchResults.poster,
-            comment: commentState.comment,
+            comments: commentState.comments,
             dvd: commentState.dvd,
             blue_ray: commentState.blue_ray
         }
+
         API.collectMovie(props.token, movieObj).then(function (newMovie) {
             if (newMovie) {
                 API.getUserMovies(props.token).then(function (userMovies) {
                     if (userMovies) {
                         props.setUserState({ ...props.userState, movies: userMovies });
+                        handleClose();
                     }
                 });
             }
@@ -47,7 +49,6 @@ function SearchResults(props) {
     }
 
     function handleCheckChange(event) {
-        console.log("check");
         let value = false;
         if (event.target.value === "false") {
             value = true
@@ -66,8 +67,8 @@ function SearchResults(props) {
                         <textarea
                             className="form-control"
                             rows="3"
-                            value={commentState.comment || ""}
-                            name="comment"
+                            value={commentState.comments || ""}
+                            name="comments"
                             onChange={handleCommentChange}
                             type="text"
                             placeholder="Comments"
