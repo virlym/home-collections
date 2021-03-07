@@ -10,6 +10,7 @@ import MusicSearch from "./pages/musicSearch/musicSearch.js";
 import UserMusic from "./pages/userMusic/userMusic.js";
 import UserBooks from "./pages/userBooks/userBooks.js";
 import UserMovies from "./pages/userMovies/userMovies.js";
+import AccountVerification from "./pages/accountVerification/accountVerification.js";
 import Login from "./pages/login/login.js";
 import Signup from "./pages/signup/signup.js";
 import Logout from "./pages/logout/logout.js";
@@ -59,6 +60,9 @@ function App() {
     }
     else if(window.location.pathname === "/expired"){
       setPageState({ currentPage: "expired" });
+    }
+    else if(window.location.pathname === "/verify"){
+      setPageState({ currentPage: "verify" });
     }
     else{
       setPageState({ currentPage: "landing" });
@@ -162,6 +166,7 @@ function App() {
         <Route path="/login"> <Login setPageState={setPageState} setUserState={setUserState} userState={userState} fillProfile={fillProfile}/> </Route>
         <Route path="/signup"> <Signup setPageState={setPageState} setUserState={setUserState} userState={userState} fillProfile={fillProfile}/> </Route>
         <Route path="/expired"> <Expired setUserState={setUserState} userState={userState} /> </Route>
+        <Route path="/verify"> <AccountVerification setPageState={setPageState} /> </Route>
         <Route path="/landing"> <Landing setPageState={setPageState} /> </Route>
         <Route exact path="/"> <Landing setPageState={setPageState} /> </Route>
         <Route path="*"> <Landing setPageState={setPageState} /> </Route>
