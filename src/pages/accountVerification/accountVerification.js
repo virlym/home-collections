@@ -26,12 +26,21 @@ function AccountVerification(props) {
 
   }
 
+  function testUrl() {
+    const url = window.location.href;
+    const user = url.split('/')[4];
+    const ePass = url.split('/')[5];
+    const key = decodeURIComponent(ePass);
+    console.log(ePass);
+    console.log(key);
+  }
+
   return (
     <div>
       <div className="row">
             <div className="col-12">
               <h1> Verification </h1>
-              <button className="btn btn-lg btn-primary" onClick={testEmail}>Create Account</button>
+              <button className="btn btn-lg btn-primary" onClick={testUrl}>Create Account</button>
             </div>
         </div>
     </div>
