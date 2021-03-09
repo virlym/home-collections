@@ -68,6 +68,32 @@ const API = {
         return null;
     });
   },
+  // requires: user database id (integer)  
+  verifyUser: function (id) {
+    return fetch(`${URL_PREFIX}api/users/verify/${id}`, {
+        method: "PUT",
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(function (res) {
+        return res.json();
+    }).catch(function (err) {
+        return null;
+    });
+  },
+  // requires: user database id (integer) 
+  verifyCheck: function (id) {
+    return fetch(`${URL_PREFIX}api/users/${id}`, {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(function (res) {
+        return res.json();
+    }).catch(function (err) {
+        return null;
+    });
+  },
 
   //////////////////////////// Book Calls ////////////////////////////
   // expects: user to be logged in
