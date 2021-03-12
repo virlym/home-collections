@@ -40,6 +40,14 @@ function AccountVerification(props) {
           else{
             console.log("url matches");
             setVerifyCheck({ ...verifyCheck, message: "Validating account now" });
+            API.verifyUser(user).then(function (verifiedUser) {
+              if(verifiedUser){
+                setVerifyCheck({ message: "Account has been verified. You may now log in.", match: true });
+              }
+              else{
+                setVerifyCheck({ ...verifyCheck, message: "Something went wrong. Please contact support." });
+              }
+            });
           }
         }
         else{
