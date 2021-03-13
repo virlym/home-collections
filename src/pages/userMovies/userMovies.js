@@ -21,7 +21,7 @@ function UserMovies(props) {
     const data = [...props.userState.movies];
     const newFilter = [];
     for (let i = 0; i < data.length; i++) {
-      const term = `${data[i].title.toLocaleLowerCase()} ${data[i].year}`;
+      const term = `${data[i].title.toLocaleLowerCase()} ${data[i].year} ${data[i].comments}`;
       if ((filterState.filterTerm === "") || (term.indexOf(filterState.filterTerm.toLocaleLowerCase()) > -1)) {
         newFilter.push(props.userState.movies[i]);
       }
