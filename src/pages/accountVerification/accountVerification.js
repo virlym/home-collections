@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from 'react-router-dom';
 import "./accountVerification.css";
-import emailjs from 'emailjs-com';
 import API from "../../utils/API.js";
 
 function AccountVerification(props) {
+  let history = useHistory();
 
   const [verifyCheck, setVerifyCheck] = useState({
     match: false,
@@ -27,25 +28,25 @@ function AccountVerification(props) {
         if(newCheck){
           console.log(newCheck);
           if(newCheck.isActive === true){
-            setVerifyCheck({ ...verifyCheck, message: "Your account has already been activated." });
+            setVerifyCheck({ ...verifyCheck, message: "Your account has already been activated.-Please log in.", match: true });
           }
           else if(newCheck.newUser === false){
-            setVerifyCheck({ ...verifyCheck, message: "Your account has been deactivated." });
+            setVerifyCheck({ ...verifyCheck, message: "Your account has been deactivated.-Please contact support to reactivate it." });
           }
           else if(newCheck.password !== key){
-            setVerifyCheck({ ...verifyCheck, message: "Please check the URL and make sure it matches what was sent to your email." });
+            setVerifyCheck({ ...verifyCheck, message: "Please check the URL.-Make sure it matches what was sent to your email." });
             console.log(key);
             console.log(newCheck.password);
           }
           else{
             console.log("url matches");
-            setVerifyCheck({ ...verifyCheck, message: "Validating account now" });
+            setVerifyCheck({ ...verifyCheck, message: "Validating account now.-Please wait." });
             API.verifyUser(user).then(function (verifiedUser) {
               if(verifiedUser){
-                setVerifyCheck({ message: "Account has been verified. You may now log in.", match: true });
+                setVerifyCheck({ message: "Account has been verified.-You may now log in.", match: true });
               }
               else{
-                setVerifyCheck({ ...verifyCheck, message: "Something went wrong. Please contact support." });
+                setVerifyCheck({ ...verifyCheck, message: "Something went wrong. Please contact support.-" });
               }
             });
           }
@@ -57,35 +58,9 @@ function AccountVerification(props) {
     }
   }
 
-  function testEmail() {
-    console.log("test");
-    const url = window.location.href;
-    const user = url.split('/')[4];
-    const key = url.split('/')[5];
-    console.log(user);
-    console.log(key);
-
-    let data = {
-      to_email: 'virlym@gmail.com',
-      verify_url: url
-    } 
-
-    emailjs.send(process.env.REACT_APP_EMAIL_SERVICE, process.env.REACT_APP_EMAIL_VERIFICATION_TEMPLATE, data, process.env.REACT_APP_EMAIL_USER)
-    .then(function(response) {
-       console.log('SUCCESS!', response.status, response.text);
-    }, function(error) {
-       console.log('FAILED...', error);
-    });
-
-  }
-
-  function testUrl() {
-    const url = window.location.href;
-    const user = url.split('/')[4];
-    const ePass = url.split('/')[5];
-    const key = decodeURIComponent(ePass);
-    console.log(ePass);
-    console.log(key);
+  function toLogin() {
+    props.setPageState({ currentPage: "login" });
+    return history.push("/login");
   }
 
   return (
@@ -93,8 +68,16 @@ function AccountVerification(props) {
       <div className="row">
             <div className="col-12">
               <h1> Verification </h1>
-              <p> {verifyCheck.message} </p>
-              <button className="btn btn-lg btn-primary" onClick={testUrl}>Create Account</button>
+              <br />
+              <div className="center-style">
+                <p> {verifyCheck.message.split('-')[0]} </p>
+                <p> {verifyCheck.message.split('-')[1]}</p>
+                {verifyCheck.match === true
+                  ? <button className="btn btn-lg btn-primary" onClick={toLogin}>Login</button>
+                  : null
+                }
+              </div>
+              
             </div>
         </div>
     </div>
