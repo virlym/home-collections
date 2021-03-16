@@ -85,6 +85,11 @@ function Login(props) {
                   onChange={handleInputChange}
                 />
                 <br />
+                <Link to="/forgotten" className="forgotten" onClick={function(){ props.setPageState({currentPage: "forgotten"})}}>
+                  Forgot your password?
+                </Link>
+                <br />
+                <br />
                 <button className="btn btn-lg btn-primary btn-block" type="submit">Login</button>
                 <br />
                 <div className="center-style">
