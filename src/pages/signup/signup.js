@@ -54,32 +54,9 @@ function Signup(props) {
           setSignUpConfirmState({ ...signUpConfirmState, message: `SUCCESS! Your account has been created. You should receive a verification email with a URL link at : ${newUser.email}`, visible: true, success: true});
           // console.log('SUCCESS!', response.status, response.text);
         }, function(error) {
-          setSignUpConfirmState({ ...signUpConfirmState, email: newUser.email });
-          setSignUpConfirmState({ ...signUpConfirmState, message: `Your account has been created, but something went wrong with the verification.`, visible: true, success: false});
+          setSignUpConfirmState({ ...signUpConfirmState, email: newUser.email, message: `Your account has been created, but something went wrong with the verification.`, visible: true, success: false});
           // console.log('FAILED...', error);
         });
-        // API.loginUser(signUpFormState).then(function (newToken) {
-        //   if(newToken){
-        //     localStorage.setItem("token", newToken.token);
-        //     API.getProfile(newToken.token).then(function (data){
-        //       props.setUserState({
-        //         email: data.email,
-        //         token: newToken.token,
-        //         id: data.id,
-        //         isLoggedIn: true,
-        //         loginError: "",
-        //         signUpError: "",
-        //         books: [],
-        //         movies: [],
-        //         albums: []
-        //       });
-        //     });
-        //   }
-        //   else{
-        //     //login failed
-        //     props.setUserState({ ...props.userState, signUpError: "Sign Up failed" });
-        //   }
-        // });
       }
       else{
         //signUp failed

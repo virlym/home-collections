@@ -94,6 +94,19 @@ const API = {
         return null;
     });
   },
+  // requires: user email (string) 
+  emailCheck: function (email) {
+    return fetch(`${URL_PREFIX}api/users/email/${email}`, {
+        method: "GET",
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).then(function (res) {
+        return res.json();
+    }).catch(function (err) {
+        return null;
+    });
+  },
 
   //////////////////////////// Book Calls ////////////////////////////
   // expects: user to be logged in
