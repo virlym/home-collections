@@ -6,3 +6,15 @@
   border-style: solid;
   border-color: slategrey;
 }
+
+.noError{
+  text-align: center;
+  color: white;
+  font-size: 13px;
+}
+
+.errorMessage{
+  text-align: center;
+  color: red;
+  font-size: 13px;
+}

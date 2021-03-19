@@ -1,26 +1,29 @@
-import React, { useState, useEffect } from "react";
-import { Link, useHistory } from 'react-router-dom';
+import React, { useState } from "react";
+import { useHistory } from 'react-router-dom';
 import "./forgotten.css";
 import API from "../../utils/API.js";
+import emailjs from 'emailjs-com';
 
 function Forgotten(props) {
   let history = useHistory();
 
   const [forgottenPassword, setForgottenPassword] = useState({
     email: "",
-    match: false,
-    message: ""
+    show: false,
+    message: "",
+    error: false,
+    match: false
   });
-
-  useEffect(function () {
-    // checkUrl();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   function handleInputChange(event) {
     const value = event.target.value;
     const name = event.target.name;
-    setForgottenPassword({...forgottenPassword, [name]: value});
+    setForgottenPassword({...forgottenPassword, [name]: value, show: false});
+  }
+
+  function doneReset() {
+    props.setPageState({ currentPage: "landing" });
+    return history.push("/landing");
   }
 
   function handleFormSubmit(event) {
@@ -29,7 +32,7 @@ function Forgotten(props) {
     API.emailCheck(forgottenPassword.email).then(function (foundUser) {
       if(foundUser){
         if(foundUser.isActive === false){
-          setForgottenPassword({ ...forgottenPassword, email: "", message: `Your account has been deactivated. Please contact customer support.`, match: true});
+          setForgottenPassword({ ...forgottenPassword, email: "", message: `Your account has been deactivated. Please contact customer support.`, show: true, error: true, match: false});
         }
         else{
           const data = {
@@ -40,22 +43,23 @@ function Forgotten(props) {
             if(changed){
               emailjs.send(process.env.REACT_APP_EMAIL_SERVICE, process.env.REACT_APP_CHANGE_PASS_TEMPLATE, data, process.env.REACT_APP_EMAIL_USER)
               .then(function(response) {
-                setForgottenPassword({ ...forgottenPassword, email: "", message: `An email will be sent to ${foundUser.email} with instructions to reset your password`, match: true});
+                setForgottenPassword({ ...forgottenPassword, email: "", message: `An email will be sent to ${foundUser.email} with instructions to reset your password`, show: true, error: false, match: true});
                 // console.log('SUCCESS!', response.status, response.text);
               }, function(error) {
-                setForgottenPassword({ ...forgottenPassword, email: newUser.email, message: `There was a problem sending an email to ${foundUser.email}. Please contact customer support or try again later.`, visible: true, success: false});
+                setForgottenPassword({ ...forgottenPassword, email: foundUser.email, message: `There was a problem sending an email to ${foundUser.email}. Please contact customer support or try again later.`, show: true, error: true, match: false});
                 // console.log('FAILED...', error);
               });
             }
             else{
-              setForgottenPassword({ ...forgottenPassword, email: "", message: `An error has occurred. Please double check your email and try again later.`, match: true});
+              setForgottenPassword({ ...forgottenPassword, email: "", message: `An error has occurred. Please double check your email and try again later.`, show: true, error: true, match: false});
             }
           });
         }
       }
       else{
         //failed to find user with that email
-        setForgottenPassword({ ...forgottenPassword, email: "", message: `An error has occurred. Please double check your email and try again later.`, match: true});
+        const check = forgottenPassword.email;
+        setForgottenPassword({ ...forgottenPassword, email: "", message: `Unable to find ${check}. Please double check your email and try again later.`, show: true, error: true, match: false});
       }
     });
    
@@ -66,21 +70,36 @@ function Forgotten(props) {
       <div className="row">
             <div className="col-12">
               <h1> Password Reset </h1>
-              <form className="resetForm" onSubmit={handleFormSubmit}>
-                <label>Email address:</label>
-                <input 
-                  type="email"  
-                  className="form-control" 
-                  placeholder="Email address" 
-                  required=""
-                  name="email" 
-                  value={forgottenPassword.email || ""} 
-                  onChange={handleInputChange}
-                />
-                <br />
-                <button className="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-                <br />
-              </form>
+              {forgottenPassword.match === false
+              ?
+                <form className="resetForm" onSubmit={handleFormSubmit}>
+                  {forgottenPassword.show === true
+                    ? <> <h2 className="errorMessage" > {forgottenPassword.message} </h2> <br /> </>
+                    : null
+                  }
+                  <label>Email address:</label>
+                  <input 
+                    type="email"  
+                    className="form-control" 
+                    placeholder="Email address" 
+                    required=""
+                    name="email" 
+                    value={forgottenPassword.email || ""} 
+                    onChange={handleInputChange}
+                  />
+                  <br />
+                  <button className="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+                  <br />
+                </form>
+              :
+                <div className="resetForm"> 
+                  <br />
+                  <h2 className="noError" > {forgottenPassword.message} </h2>
+                  <br /> <br />
+                  <button className="btn btn-lg btn-primary btn-block" onClick={doneReset}>Ok</button>
+                  <br />
+                </div>
+              }
             </div>
         </div>
     </div>

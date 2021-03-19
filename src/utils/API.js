@@ -107,6 +107,20 @@ const API = {
         return null;
     });
   },
+  // requires: user email (string) 
+  changePass: function (id, status) {
+    return fetch(`${URL_PREFIX}api/users/change/pass/${id}`, {
+        method: "PUT",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({changePass: status})
+    }).then(function (res) {
+        return res.json();
+    }).catch(function (err) {
+        return null;
+    });
+  },
 
   //////////////////////////// Book Calls ////////////////////////////
   // expects: user to be logged in
