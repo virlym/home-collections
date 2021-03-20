@@ -12,6 +12,7 @@ import UserBooks from "./pages/userBooks/userBooks.js";
 import UserMovies from "./pages/userMovies/userMovies.js";
 import AccountVerification from "./pages/accountVerification/accountVerification.js";
 import Forgotten from "./pages/forgotten/forgotten.js";
+import Reset from "./pages/reset/reset.js";
 import Login from "./pages/login/login.js";
 import Signup from "./pages/signup/signup.js";
 import Logout from "./pages/logout/logout.js";
@@ -67,6 +68,9 @@ function App() {
     }
     else if(window.location.pathname === "/forgotten"){
       setPageState({ currentPage: "forgotten" });
+    }
+    else if(window.location.pathname === "/reset"){
+      setPageState({ currentPage: "reset" });
     }
     else{
       setPageState({ currentPage: "landing" });
@@ -172,6 +176,7 @@ function App() {
         <Route path="/expired"> <Expired setUserState={setUserState} userState={userState} /> </Route>
         <Route path="/verify"> <AccountVerification setPageState={setPageState} /> </Route>
         <Route path="/forgotten"> <Forgotten setPageState={setPageState} /> </Route>
+        <Route path="/reset"> <Reset setPageState={setPageState} /> </Route>
         <Route path="/landing"> <Landing setPageState={setPageState} /> </Route>
         <Route exact path="/"> <Landing setPageState={setPageState} /> </Route>
         <Route path="*"> <Landing setPageState={setPageState} /> </Route>

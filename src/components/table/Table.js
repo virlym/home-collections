@@ -2,7 +2,6 @@ import React from "react";
 import "./style.css";
 
 function Table(props) {
-    //console.log("name: ", props.user[0].firstName);
   return (
       <tbody>
           <tr className="header">

@@ -29,7 +29,6 @@ const API = {
     }).then(function (res) {
         return res.json();
     }).catch(function (err) {
-        console.log("login failed");
         console.log(err);
         return null;
     });
@@ -107,7 +106,7 @@ const API = {
         return null;
     });
   },
-  // requires: user email (string) 
+  // requires: user database id (integer), changePass status (bool)
   changePass: function (id, status) {
     return fetch(`${URL_PREFIX}api/users/change/pass/${id}`, {
         method: "PUT",
@@ -115,6 +114,20 @@ const API = {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({changePass: status})
+    }).then(function (res) {
+        return res.json();
+    }).catch(function (err) {
+        return null;
+    });
+  },
+  // requires: user database id (integer), pass (string)
+  resetPass: function (id, pass) {
+    return fetch(`${URL_PREFIX}api/users/reset/pass/${id}`, {
+        method: "PUT",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({newPass: pass})
     }).then(function (res) {
         return res.json();
     }).catch(function (err) {

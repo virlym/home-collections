@@ -20,13 +20,10 @@ function AccountVerification(props) {
     const url = window.location.href;
     const user = url.split('/')[4];
     const key = decodeURIComponent(url.split('/')[5]);
-    console.log(user);
-    console.log(key);
 
     if((user) && (key)){
       API.verifyCheck(user).then(function (newCheck) {
         if(newCheck){
-          console.log(newCheck);
           if(newCheck.isActive === true){
             setVerifyCheck({ ...verifyCheck, message: "Your account has already been activated.-Please log in.", match: true });
           }
@@ -35,11 +32,8 @@ function AccountVerification(props) {
           }
           else if(newCheck.password !== key){
             setVerifyCheck({ ...verifyCheck, message: "Please check the URL.-Make sure it matches what was sent to your email." });
-            console.log(key);
-            console.log(newCheck.password);
           }
           else{
-            console.log("url matches");
             setVerifyCheck({ ...verifyCheck, message: "Validating account now.-Please wait." });
             API.verifyUser(user).then(function (verifiedUser) {
               if(verifiedUser){
@@ -52,7 +46,7 @@ function AccountVerification(props) {
           }
         }
         else{
-          console.log("didn't find the user");
+          setVerifyCheck({ ...verifyCheck, message: "Please check the URL.-Make sure it matches what was sent to your email." });
         }
       });
     }
