@@ -10,6 +10,7 @@ import MusicSearch from "./pages/musicSearch/musicSearch.js";
 import UserMusic from "./pages/userMusic/userMusic.js";
 import UserBooks from "./pages/userBooks/userBooks.js";
 import UserMovies from "./pages/userMovies/userMovies.js";
+import LoggedOut from "./pages/loggedOut/loggedOut.js";
 import AccountVerification from "./pages/accountVerification/accountVerification.js";
 import Forgotten from "./pages/forgotten/forgotten.js";
 import Reset from "./pages/reset/reset.js";
@@ -62,6 +63,9 @@ function App() {
     }
     else if(window.location.pathname === "/expired"){
       setPageState({ currentPage: "expired" });
+    }
+    else if(window.location.pathname === "/loggedout"){
+      setPageState({ currentPage: "loggedout" });
     }
     else if(window.location.pathname === "/verify"){
       setPageState({ currentPage: "verify" });
@@ -174,6 +178,7 @@ function App() {
         <Route path="/login"> <Login setPageState={setPageState} setUserState={setUserState} userState={userState} fillProfile={fillProfile}/> </Route>
         <Route path="/signup"> <Signup setPageState={setPageState} setUserState={setUserState} userState={userState} fillProfile={fillProfile}/> </Route>
         <Route path="/expired"> <Expired setUserState={setUserState} userState={userState} /> </Route>
+        <Route path="/loggedout"> <LoggedOut setUserState={setUserState} userState={userState} /> </Route>
         <Route path="/verify"> <AccountVerification setPageState={setPageState} /> </Route>
         <Route path="/forgotten"> <Forgotten setPageState={setPageState} /> </Route>
         <Route path="/reset"> <Reset setPageState={setPageState} /> </Route>
