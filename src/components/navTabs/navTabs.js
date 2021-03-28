@@ -45,7 +45,7 @@ function NavTabs(props) {
         ?
           <Nav.Link as={Link} to="/login" onClick={function(){ props.setPageState({currentPage: "login"})}} className={props.currentPage === "login" || props.currentPage === "signup" ? "nav-link active bg-dark text-light" : "nav-link text-light"}>Login</Nav.Link>
         :
-          <Nav.Link as={Link} to="/landing" onClick={function(){ props.setLoggingOutState(true); props.setPageState({currentPage: "landing"})}} className="nav-link text-light">Logout</Nav.Link>
+          <Nav.Link as={Link} to="/loggedout" onClick={function(){ props.setLoggingOutState(true); props.setPageState({currentPage: "loggedout"})}} className="nav-link text-light">Logout</Nav.Link>
         }
       </Nav>
       </Navbar.Collapse>
