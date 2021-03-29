@@ -1,27 +1,7 @@
-import React, { useEffect }from "react";
+import React from "react";
 import "./loggedOut.css";
 
-function LoggedOut(props) {
-
-  useEffect(function () {
-    if(props.userState){
-      if(props.userState.isLoggedIn === true){
-        localStorage.clear();
-        props.setUserState({
-          email: "",
-          token: "",
-          id: "",
-          isLoggedIn: false,
-          loginError: "",
-          signUpError: "",
-          books: [],
-          movies: [],
-          albums: []
-        });
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.userState.isLoggedIn]);
+function LoggedOut() {
 
   return (
     <div className="logged-out-style">
