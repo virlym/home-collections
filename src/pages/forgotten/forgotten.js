@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import "./forgotten.css";
 import API from "../../utils/API.js";
 import emailjs from 'emailjs-com';
+import {Spinner} from "react-bootstrap";
 
 function Forgotten(props) {
   let history = useHistory();
@@ -12,7 +13,11 @@ function Forgotten(props) {
     show: false,
     message: "",
     error: false,
-    match: false
+    match: false,
+  });
+
+  const [loggingState, setLoggingState] = useState({
+    logging: false
   });
 
   function handleInputChange(event) {
@@ -29,9 +34,11 @@ function Forgotten(props) {
   function handleFormSubmit(event) {
     event.preventDefault();
 
+    setLoggingState({ logging: true });
     API.emailCheck(forgottenPassword.email).then(function (foundUser) {
       if(foundUser){
         if(foundUser.isActive === false){
+          setLoggingState({ logging: false });
           setForgottenPassword({ ...forgottenPassword, email: "", message: `Your account has been deactivated. Please contact customer support.`, show: true, error: true, match: false});
         }
         else{
@@ -43,14 +50,17 @@ function Forgotten(props) {
             if(changed){
               emailjs.send(process.env.REACT_APP_EMAIL_SERVICE, process.env.REACT_APP_CHANGE_PASS_TEMPLATE, data, process.env.REACT_APP_EMAIL_USER)
               .then(function(response) {
+                setLoggingState({ logging: false });
                 setForgottenPassword({ ...forgottenPassword, email: "", message: `An email will be sent to ${foundUser.email} with instructions to reset your password`, show: true, error: false, match: true});
                 // console.log('SUCCESS!', response.status, response.text);
               }, function(error) {
+                setLoggingState({ logging: false });
                 setForgottenPassword({ ...forgottenPassword, email: foundUser.email, message: `There was a problem sending an email to ${foundUser.email}. Please contact customer support or try again later.`, show: true, error: true, match: false});
                 // console.log('FAILED...', error);
               });
             }
             else{
+              setLoggingState({ logging: false });
               setForgottenPassword({ ...forgottenPassword, email: "", message: `An error has occurred. Please double check your email and try again later.`, show: true, error: true, match: false});
             }
           });
@@ -59,6 +69,7 @@ function Forgotten(props) {
       else{
         //failed to find user with that email
         const check = forgottenPassword.email;
+        setLoggingState({ logging: false });
         setForgottenPassword({ ...forgottenPassword, email: "", message: `Unable to find ${check}. Please double check your email and try again later.`, show: true, error: true, match: false});
       }
     });
@@ -88,7 +99,18 @@ function Forgotten(props) {
                     onChange={handleInputChange}
                   />
                   <br />
-                  <button className="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+                  {loggingState.logging === false
+                    ? <button className="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+                    : 
+                      <button className="btn btn-lg btn-primary btn-block" disabled>
+                        <Spinner
+                          as="span"
+                          animation="border"
+                          role="status"
+                          aria-hidden="true"
+                        />
+                      </button>
+                  }
                   <br />
                 </form>
               :

@@ -3,14 +3,15 @@ import { Link, useHistory } from 'react-router-dom';
 import "./signup.css";
 import API from "../../utils/API.js";
 import emailjs from 'emailjs-com';
-import { Button, Modal } from 'react-bootstrap';
+import { Button, Modal, Spinner } from 'react-bootstrap';
 
 function Signup(props) {
   let history = useHistory();
 
   const [signUpFormState, setSignUpFormState] = useState({
     email: "",
-    password: ""
+    password: "",
+    logging: false
   });
 
   const [signUpConfirmState, setSignUpConfirmState] = useState({
@@ -39,13 +40,14 @@ function Signup(props) {
   function handleFormSubmit(event) {
     event.preventDefault();
 
+    setSignUpFormState({ ...signUpFormState, logging: true });
     API.createUser(signUpFormState).then(function (newUser) {
       if(newUser){
         const data = {
           to_email: newUser.email,
           verify_url: `${process.env.REACT_APP_VERIFY_BASE}${newUser.id}/${encodeURIComponent(newUser.password)}`
         } 
-        setSignUpFormState({ email: "", password: "" });
+        setSignUpFormState({ email: "", password: "", logging: false });
         props.setUserState({ ...props.userState, signUpError: "" });
         setSignUpConfirmState({ ...signUpConfirmState, email: newUser.email });
 
@@ -61,6 +63,7 @@ function Signup(props) {
       else{
         //signUp failed
         props.setUserState({ ...props.userState, signUpError: "Sign Up failed" });
+        setSignUpFormState({ ...signUpFormState, logging: false });
       }
     });
   }
@@ -113,7 +116,18 @@ function Signup(props) {
                   onChange={handleInputChange}
                 />
                 <br />
-                <button className="btn btn-lg btn-primary btn-block" type="submit">Create Account</button>
+                {signUpFormState.logging === false
+                  ? <button className="btn btn-lg btn-primary btn-block" type="submit">Create Account</button>
+                  : 
+                    <button className="btn btn-lg btn-primary btn-block" disabled>
+                      <Spinner
+                        as="span"
+                        animation="border"
+                        role="status"
+                        aria-hidden="true"
+                      />
+                    </button>
+                }
                 <br />
                 <div className="center-style">
                   Already have an account? 

@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Link, useHistory } from 'react-router-dom';
 import "./login.css";
 import API from "../../utils/API.js";
+import {Spinner} from "react-bootstrap";
 
 function Login(props) {
   let history = useHistory();
 
   const [loginFormState, setLoginFormState] = useState({
     email: "",
-    password: ""
+    password: "",
+    logging: false
   });
 
   useEffect(function () {
@@ -29,6 +31,7 @@ function Login(props) {
   function handleFormSubmit(event) {
     event.preventDefault();
 
+    setLoginFormState({ ...loginFormState, logging: true });
     API.loginUser(loginFormState).then(function (newToken) {
       if(newToken){
         localStorage.setItem("token", newToken.token);
@@ -49,6 +52,7 @@ function Login(props) {
       else{
         //login failed
         props.setUserState({ ...props.userState, loginError: "Login failed" });
+        setLoginFormState({ ...loginFormState, logging: false });
       }
     });
   }
@@ -90,7 +94,18 @@ function Login(props) {
                 </Link>
                 <br />
                 <br />
-                <button className="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+                {loginFormState.logging === false
+                  ? <button className="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+                  : 
+                    <button className="btn btn-lg btn-primary btn-block" disabled>
+                      <Spinner
+                        as="span"
+                        animation="border"
+                        role="status"
+                        aria-hidden="true"
+                      />
+                    </button>
+                }
                 <br />
                 <div className="center-style">
                   Don't have an account? 
