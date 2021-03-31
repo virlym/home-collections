@@ -178,7 +178,7 @@ function App() {
         <Route path="/login"> <Login setPageState={setPageState} setUserState={setUserState} userState={userState} fillProfile={fillProfile}/> </Route>
         <Route path="/signup"> <Signup setPageState={setPageState} setUserState={setUserState} userState={userState} fillProfile={fillProfile}/> </Route>
         <Route path="/expired"> <Expired setUserState={setUserState} userState={userState} /> </Route>
-        <Route path="/loggedout"> <LoggedOut setUserState={setUserState} userState={userState} /> </Route>
+        <Route path="/loggedout"> <LoggedOut userState={userState} /> </Route>
         <Route path="/verify"> <AccountVerification setPageState={setPageState} /> </Route>
         <Route path="/forgotten"> <Forgotten setPageState={setPageState} /> </Route>
         <Route path="/reset"> <Reset setPageState={setPageState} /> </Route>
