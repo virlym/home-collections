@@ -41,31 +41,46 @@ function Signup(props) {
     event.preventDefault();
 
     setSignUpFormState({ ...signUpFormState, logging: true });
-    API.createUser(signUpFormState).then(function (newUser) {
-      if(newUser){
-        const data = {
-          to_email: newUser.email,
-          verify_url: `${process.env.REACT_APP_VERIFY_BASE}${newUser.id}/${encodeURIComponent(newUser.password)}`
-        } 
-        setSignUpFormState({ email: "", password: "", logging: false });
-        props.setUserState({ ...props.userState, signUpError: "" });
-        setSignUpConfirmState({ ...signUpConfirmState, email: newUser.email });
-
-        emailjs.send(process.env.REACT_APP_EMAIL_SERVICE, process.env.REACT_APP_EMAIL_VERIFICATION_TEMPLATE, data, process.env.REACT_APP_EMAIL_USER)
-        .then(function(response) {
-          setSignUpConfirmState({ ...signUpConfirmState, message: `SUCCESS! Your account has been created. You should receive a verification email with a URL link at : ${newUser.email}`, visible: true, success: true});
-          // console.log('SUCCESS!', response.status, response.text);
-        }, function(error) {
-          setSignUpConfirmState({ ...signUpConfirmState, email: newUser.email, message: `Your account has been created, but something went wrong with the verification.`, visible: true, success: false});
-          // console.log('FAILED...', error);
-        });
+    if(/^([a-zA-Z0-9`~!@#$%^&*()_=+,.?'";:[\]{}-]{6,24})$/.test(signUpFormState.password) === false){
+      if(signUpFormState.password.length < 6){
+        props.setUserState({ ...props.userState, signUpError: "Password is too short" });
+      }
+      else if (signUpFormState.password.length > 24){
+        props.setUserState({ ...props.userState, signUpError: "Password is too long" });
       }
       else{
-        //signUp failed
-        props.setUserState({ ...props.userState, signUpError: "Sign Up failed" });
-        setSignUpFormState({ ...signUpFormState, logging: false });
+        props.setUserState({ ...props.userState, signUpError: "Password should only contain English characters" });
       }
-    });
+      setSignUpFormState({ ...signUpFormState, logging: false });
+    }
+    else{
+      API.createUser(signUpFormState).then(function (newUser) {
+        if(newUser){
+          const data = {
+            to_email: newUser.email,
+            verify_url: `${process.env.REACT_APP_VERIFY_BASE}${newUser.id}/${encodeURIComponent(newUser.password)}`
+          } 
+          setSignUpFormState({ email: "", password: "", logging: false });
+          props.setUserState({ ...props.userState, signUpError: "" });
+          setSignUpConfirmState({ ...signUpConfirmState, email: newUser.email });
+  
+          emailjs.send(process.env.REACT_APP_EMAIL_SERVICE, process.env.REACT_APP_EMAIL_VERIFICATION_TEMPLATE, data, process.env.REACT_APP_EMAIL_USER)
+          .then(function(response) {
+            setSignUpConfirmState({ ...signUpConfirmState, message: `SUCCESS! Your account has been created. You should receive a verification email with a URL link at : ${newUser.email}`, visible: true, success: true});
+            // console.log('SUCCESS!', response.status, response.text);
+          }, function(error) {
+            setSignUpConfirmState({ ...signUpConfirmState, email: newUser.email, message: `Your account has been created, but something went wrong with the verification.`, visible: true, success: false});
+            // console.log('FAILED...', error);
+          });
+        }
+        else{
+          //signUp failed
+          props.setUserState({ ...props.userState, signUpError: "Sign Up failed" });
+          setSignUpFormState({ ...signUpFormState, logging: false });
+        }
+      });
+    }
+    
   }
 
   function handleClose() {
