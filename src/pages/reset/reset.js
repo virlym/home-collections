@@ -54,6 +54,17 @@ function Reset(props) {
     if(resetCheck.password !== resetCheck.confirm){
       setResetCheck({ ...resetCheck, message: "Passwords must match", match: true, typo: true, updated: false, password: "", confirm: "" });
     }
+    else if(/^([a-zA-Z0-9`~!@#$%^&*()_=+,.?'";:[\]{}-]{6,24})$/.test(resetCheck.password) === false){
+      if(resetCheck.password.length < 6){
+        setResetCheck({ ...resetCheck, message: "Password is too short", match: true, typo: true, updated: false, password: "", confirm: "" });
+      }
+      else if (resetCheck.password.length > 24){
+        setResetCheck({ ...resetCheck, message: "Password is too long", match: true, typo: true, updated: false, password: "", confirm: "" });
+      }
+      else{
+        setResetCheck({ ...resetCheck, message: "Password should only contain English characters", match: true, typo: true, updated: false, password: "", confirm: "" });
+      }
+    }
     else{
       const url = window.location.href;
       const user = url.split('/')[4];
