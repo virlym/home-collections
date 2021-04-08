@@ -1,5 +1,4 @@
-// const URL_PREFIX = "http://localhost:8080/"
-const URL_PREFIX = "https://home-collections-api.herokuapp.com/"
+const URL_PREFIX = REACT_APP_URL_BASE
 
 
 const API = {
