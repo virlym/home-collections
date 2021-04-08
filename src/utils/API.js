@@ -1,5 +1,4 @@
-const URL_PREFIX = REACT_APP_URL_BASE
-
+const URL_PREFIX = process.env.REACT_APP_URL_BASE
 
 const API = {
   //////////////////////////// User Calls ////////////////////////////
