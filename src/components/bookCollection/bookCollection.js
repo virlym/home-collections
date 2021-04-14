@@ -3,11 +3,15 @@ import "./bookCollection.css";
 import API from "../../utils/API.js";
 
 function BookCollection(props) {
-  // props required from the userState:
-  // session token, and the setUserState method
-  
-  // props required from the passed collection:
-  // cover, title, subtitle (if available), published date (if available), authors, and the book id
+  // required props:
+  // setUserState()
+  // userState.token
+  // collection.cover
+  // collection.title
+  // collection.subtitle (if available)
+  // collection.published (if available)
+  // collection.author
+  // collection.id
 
   // function that will remove the book from the user's collection
   function removeFromCollection() {
