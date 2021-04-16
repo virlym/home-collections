@@ -2,8 +2,15 @@ import React from "react";
 import "./filterBar.css";
 
 function FilterBar(props) {
-    return (
+    // required props:
+    // handleFilterInputChange()
+    // setFilterState()
+    // filterState
+    // filterState.filterTerm
 
+    // visual:
+    // [input field : "Filter Term"] - [clear button]
+    return (
         <div className="row">
             <div className="col-12">
                 <div className="input-group input-group-lg filter-style">
