@@ -2,6 +2,7 @@ import React from "react";
 import {Spinner} from "react-bootstrap";
 
 function Searching() {
+    // returns a bootstrap spinner with the "info" coloring
     return (
         <div className="row">
             <div className="col-12">
