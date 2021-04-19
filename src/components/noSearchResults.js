@@ -1,6 +1,7 @@
 import React from "react";
 
 function NoSearchResults() {
+    // default "no results" display
     return (
         <div className="row">
             <div className="col-12">
