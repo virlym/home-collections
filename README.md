@@ -77,6 +77,7 @@
   - [npm Axios](https://www.npmjs.com/package/axios)
   - [React Router](https://reactrouter.com/web/guides/quick-start)
   - [npm React Helmet](https://www.npmjs.com/package/react-helmet)
+  - [EmailJS](https://www.emailjs.com/docs/)
   <br><br>
   
   ## **Questions**
