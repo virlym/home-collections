@@ -5,7 +5,7 @@
   ## **Description**
   A Web App designed to help people keep track of their entertainment media. While you need to be logged in to save media to your collection, you can always just utilize the search engines to browse through what the APIs can find. The Book Search leverages the Google Books API to find books by title, author, publisher, subject, isbn, or just a generic search. The Movie Search leverages the OMDB API to find movies or TV series. The Music Search leverages the Spotify API to find albums by artist, album, or track title.
 
-  The App is built utilizing React and utilizes a MySQL database to store user collections. It also uses Bootstrap and React Bootstrap for styling, React Helmet for background color, Axios for API calls, and React Router Dom for page linking.
+  The App is built utilizing React and utilizes a MySQL database to store user collections. It also uses Bootstrap and React Bootstrap for styling, React Helmet for background color, Axios for API calls, and React Router Dom for page linking. Email verification utilizes MailJS to send the templated emails to users.
   <br><br>
   
   ## **Table of Contents**
@@ -77,7 +77,7 @@
   - [npm Axios](https://www.npmjs.com/package/axios)
   - [React Router](https://reactrouter.com/web/guides/quick-start)
   - [npm React Helmet](https://www.npmjs.com/package/react-helmet)
-  - [EmailJS](https://www.emailjs.com/docs/)
+  - [EmailJS] (https://www.emailjs.com/docs/)
   <br><br>
   
   ## **Questions**
