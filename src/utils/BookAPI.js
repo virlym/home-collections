@@ -23,6 +23,7 @@ const BookAPI = {
 
 export default BookAPI;
 /*
+useful API information
 https://developers.google.com/books/docs/v1/using
 https://isbn-information.com/convert-isbn-10-to-isbn-13.html
 items[]
